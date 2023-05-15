@@ -8,8 +8,19 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const islogin = sessionStorage.getItem('islogin') === 'true'
-  if (to.name !== 'login' && !islogin) next({ name: 'login' })
-  else next()
+  if (islogin) {
+    if (to.name === 'login') {
+      next({ name: 'Layout' })
+    } else {
+      next()
+    }
+  } else {
+    if (to.name === 'login') {
+      next()
+    } else {
+      next({ name: 'login' })
+    }
+  }
 })
 
 export default router

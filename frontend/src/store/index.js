@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { CLEAR_USER, SET_USER, SET_ROUTES } from "./mutation-types";
 import { layoutMap } from "@/router/router";
+import { filterAsyncRouter } from "../utils/tool";
 
 const state = {
     users: null,
@@ -31,8 +32,10 @@ const actions = {
         commit(CLEAR_USER);
     },
     setUser({ commit }, payload) {
+        let deepCopy = JSON.parse(JSON.stringify(layoutMap)),
+            accessedRouters = filterAsyncRouter(deepCopy, payload.role);
         commit(SET_USER, payload);
-        commit(SET_ROUTES, layoutMap);
+        commit(SET_ROUTES, accessedRouters);
     }
 };
 

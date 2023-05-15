@@ -66,7 +66,7 @@ export default {
 
                 loginFormState.loading = true;
                 sessionStorage.islogin = true;
-                let params = { username: loginFormState.name};
+                let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name};
                 store.dispatch("setUser", params);
                 router.replace("/");
             });
