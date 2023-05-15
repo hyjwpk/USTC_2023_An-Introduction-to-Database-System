@@ -7,10 +7,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const islogin = !!sessionStorage.getItem('jwt')
+  const jwt = sessionStorage.getItem('jwt')
+  const islogin = !!jwt
   if (islogin) {
     if (to.name === 'login') {
       next({ name: 'Layout' })
+    } else if (to.meta.hasOwnProperty("roles")) {
+      let roles = to.meta.roles || [];
+      let { role } = JSON.parse(jwt);
+      if (roles.includes(role)) {
+        next()
+      } else {
+        next({ name: 'Layout' })
+      }
     } else {
       next()
     }
