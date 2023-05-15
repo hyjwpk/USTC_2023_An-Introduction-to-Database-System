@@ -34,13 +34,14 @@
 <script>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import Icons from "@/components/Icons.vue";
 
 export default {
     components: { Icons },
     setup() {
         const router = useRouter();
-
+        const store = useStore();
         const loginFormState = reactive({
             name: "",
             pwd: "",
@@ -64,6 +65,9 @@ export default {
                 }
 
                 loginFormState.loading = true;
+                sessionStorage.islogin = true;
+                let params = { username: loginFormState.name};
+                store.dispatch("setUser", params);
                 router.replace("/");
             });
         };
@@ -77,7 +81,7 @@ export default {
 .login {
     width: 100vw;
     height: 100vh;
-    background-image: url("../../assets/img/Login.png");
+    background-image: url("../../assets/img/login.png");
     background-size: cover;
     display: flex;
     justify-content: center;

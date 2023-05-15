@@ -12,9 +12,10 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.4",
-    "pinia": "^2.0.36",
+    "screenfull": "^6.0.2",
     "vue": "^3.3.2",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@tsconfig/node18": "^2.0.1",
