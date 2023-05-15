@@ -4,12 +4,7 @@ import { layoutMap } from "@/router/router";
 
 const state = {
     users: null,
-    routers: [{
-        path: "table",
-        name: "DataTable",
-        meta: { title: "数据表格", roles: ["admin"] },
-        component: () => import("@/views/Data/Table.vue")
-    }]
+    routers: []
 };
 
 const getters = {
