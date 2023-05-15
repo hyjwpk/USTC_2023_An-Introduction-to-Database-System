@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { CLEAR_USER, SET_USER, SET_ROUTES } from "./mutation-types";
+import { layoutMap } from "@/router/router";
 
 const state = {
     users: null,
@@ -36,6 +37,7 @@ const actions = {
     },
     setUser({ commit }, payload) {
         commit(SET_USER, payload);
+        commit(SET_ROUTES, layoutMap);
     }
 };
 

@@ -1,33 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { routes } from "@/router/router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('@/layout/Index.vue'),
-      children: [{
-        path: "table",
-        name: "DataTable",
-        meta: { title: "数据表格", roles: ["admin"] },
-        component: () => import("@/views/Data/Table.vue")
-      }]
-    },
-    {
-      path: '/Login',
-      name: 'login',
-      component: () => import('@/views/Login/Login.vue')
-    }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
-  ]
+  routes: [...routes]
 })
 
 router.beforeEach((to, from, next) => {
