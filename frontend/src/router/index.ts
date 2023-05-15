@@ -6,7 +6,13 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/layout/Index.vue')
+      component: () => import('@/layout/Index.vue'),
+      children: [{
+        path: "table",
+        name: "DataTable",
+        meta: { title: "数据表格", roles: ["admin"] },
+        component: () => import("@/views/Data/Table.vue")
+      }]
     },
     {
       path: '/Login',

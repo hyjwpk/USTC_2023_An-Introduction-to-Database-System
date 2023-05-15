@@ -3,7 +3,12 @@ import { CLEAR_USER, SET_USER, SET_ROUTES } from "./mutation-types";
 
 const state = {
     users: null,
-    routers: []
+    routers: [{
+        path: "table",
+        name: "DataTable",
+        meta: { title: "数据表格", roles: ["admin"] },
+        component: () => import("@/views/Data/Table.vue")
+    }]
 };
 
 const getters = {
