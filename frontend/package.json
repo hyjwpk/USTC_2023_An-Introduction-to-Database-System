@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.4",
+    "nprogress": "^0.2.0",
     "screenfull": "^6.0.2",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0",

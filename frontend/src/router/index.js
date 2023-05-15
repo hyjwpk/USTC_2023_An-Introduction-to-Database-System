@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from "@/router/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,6 +9,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  NProgress.start();
   const jwt = sessionStorage.getItem('jwt')
   const islogin = !!jwt
   if (islogin) {
@@ -31,5 +34,9 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
+
+router.afterEach(() => {
+  NProgress.done();
+});
 
 export default router
