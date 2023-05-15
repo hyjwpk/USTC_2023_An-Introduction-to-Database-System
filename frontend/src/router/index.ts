@@ -7,7 +7,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const islogin = sessionStorage.getItem('islogin') === 'true'
+  const islogin = !!sessionStorage.getItem('jwt')
   if (islogin) {
     if (to.name === 'login') {
       next({ name: 'Layout' })

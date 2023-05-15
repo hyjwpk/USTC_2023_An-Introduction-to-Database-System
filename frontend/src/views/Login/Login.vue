@@ -65,9 +65,10 @@ export default {
                 }
 
                 loginFormState.loading = true;
-                sessionStorage.islogin = true;
                 let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name};
+                sessionStorage.setItem("jwt", JSON.stringify(params));
                 store.dispatch("setUser", params);
+                loginFormState.loading = false;
                 router.replace("/");
             });
         };
