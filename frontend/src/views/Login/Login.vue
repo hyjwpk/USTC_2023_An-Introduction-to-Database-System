@@ -36,12 +36,18 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Icons from "@/components/Icons.vue";
+import axios from "axios";
+import { ElMessage } from "element-plus";
 
 export default {
     components: { Icons },
     setup() {
         const router = useRouter();
         const store = useStore();
+        const request = axios.create({
+            baseURL: "",
+            timeout: 5000,
+        });
         const loginFormState = reactive({
             name: "",
             pwd: "",
@@ -65,11 +71,19 @@ export default {
                 }
 
                 loginFormState.loading = true;
-                let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name};
-                sessionStorage.setItem("jwt", JSON.stringify(params));
-                store.dispatch("setUser", params);
-                loginFormState.loading = false;
-                router.replace("/");
+                request.post("/api/login", { name: loginFormState.name, password: loginFormState.pwd }).then(res => {
+                    if (res.data.code == 0) {
+                        let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
+                        sessionStorage.setItem("jwt", JSON.stringify(params));
+                        store.dispatch("setUser", params);
+                        ElMessage.success("登录成功");
+                        router.replace("/");
+                    } else {
+                        ElMessage.error("登录失败");
+                    }
+                    loginFormState.loading = false;
+                })
+
             });
         };
 
