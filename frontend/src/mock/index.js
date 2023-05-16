@@ -20,7 +20,6 @@ Mock.mock("/api/login", "post", (params) => {
     return item.name === bodyData.name && item.password === bodyData.password
   }
   )
-  console.log(result)
   if (result) {
     return {
       code: "0",
@@ -39,8 +38,7 @@ Mock.mock("/api/getUserList", "get", () => {
   };
 })
 
-Mock.mock("/api/editUser", "post", (params) =>
-{
+Mock.mock("/api/editUser", "post", (params) => {
   let bodyData = JSON.parse(params.body);
   let result = userlist.find(item => {
     return item.name === bodyData.name
@@ -59,3 +57,31 @@ Mock.mock("/api/editUser", "post", (params) =>
   };
 })
 
+
+Mock.mock("/api/addUser", "post", (params) => {
+  let bodyData = JSON.parse(params.body);
+  userlist.push(bodyData);
+  return {
+    code: "0",
+    message: "success"
+  };
+})
+
+Mock.mock("/api/deleteUser", "post", (params) => {
+  let bodyData = JSON.parse(params.body);
+  let index = userlist.findIndex(item => {
+    return item.name === bodyData.name
+  }
+  )
+  if (index > -1) {
+    userlist.splice(index, 1);
+    return {
+      code: "0",
+      message: "success"
+    };
+  }
+  return {
+    code: "1",
+    message: "fail"
+  };
+})
