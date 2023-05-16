@@ -37,8 +37,9 @@ export default {
         const state = reactive({
             isFullScreen: false,
             screenfull,
-            avatar,
         });
+        const path = JSON.parse(sessionStorage.getItem('jwt')).role == "admin" ? "admin.png" : "user.png"; 
+        const avatar = new URL(("../assets/img/" + path).toString() , import.meta.url).href;
         const userName = computed(() => store.getters.getUserName);
 
         const handleFullScreen = () => {
@@ -65,6 +66,7 @@ export default {
             handleFullScreen,
             handleCommand,
             ...toRefs(state),
+            avatar
         };
     },
 };

@@ -1,7 +1,7 @@
 <template>
     <el-aside :width="isCollapse ? `64px` : `200px`">
         <div class="logo">
-            <img src="@/assets/img/admin.png" alt="logo" draggable="false" />
+            <img :src="avatar" alt="logo" draggable="false" />
         </div>
         <el-menu background-color="#001529" text-color="#eee" active-text-color="#fff" router unique-opened
             :default-active="route.path" :collapse="isCollapse">
@@ -43,6 +43,8 @@ export default {
         const route = useRoute();
         const store = useStore();
 
+        const path = JSON.parse(sessionStorage.getItem('jwt')).role == "admin" ? "admin.png" : "user.png"; 
+        const avatar = new URL(("../assets/img/" + path).toString() , import.meta.url).href;
         const state = reactive({ isCollapse: false });
         const routers = computed(() => store.state.routers);
 
@@ -55,6 +57,7 @@ export default {
         };
 
         return {
+            avatar,
             route,
             routers,
             concatPath,
