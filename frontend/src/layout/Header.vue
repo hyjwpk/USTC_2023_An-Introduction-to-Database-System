@@ -26,7 +26,8 @@ import { computed, getCurrentInstance, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import screenfull from "screenfull";
-import avatar from "@/assets/img/admin.png";
+import adminaAvatar from "@/assets/img/admin.png";
+import userAvatar from "@/assets/img/user.png";
 
 export default {
     setup() {
@@ -38,8 +39,7 @@ export default {
             isFullScreen: false,
             screenfull,
         });
-        const path = JSON.parse(sessionStorage.getItem('jwt')).role == "admin" ? "admin.png" : "user.png"; 
-        const avatar = new URL(("../assets/img/" + path).toString() , import.meta.url).href;
+        const avatar = JSON.parse(sessionStorage.getItem('jwt')).role == "admin" ? adminaAvatar : userAvatar;
         const userName = computed(() => store.getters.getUserName);
 
         const handleFullScreen = () => {
