@@ -43,6 +43,7 @@ Mock.mock("/api/editUser", "post", (params) => {
     }
     )
     if (result) {
+        result.password = bodyData.password;
         return {
             code: "0",
             message: "编辑成功"

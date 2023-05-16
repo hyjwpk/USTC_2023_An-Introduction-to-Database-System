@@ -46,16 +46,12 @@
 
 <script>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import request from "@/utils/axios";
 import { reactive } from "vue";
 import { ElMessage } from "element-plus";
 
 export default {
     setup() {
-        const request = axios.create({
-            baseURL: "",
-            timeout: 5000,
-        });
         const tableData = ref([])
         const dialogFormVisible = ref(false);
         const form = reactive({

@@ -36,7 +36,7 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Icons from "@/components/Icons.vue";
-import axios from "axios";
+import request from "@/utils/axios";
 import { ElMessage } from "element-plus";
 
 export default {
@@ -44,10 +44,6 @@ export default {
     setup() {
         const router = useRouter();
         const store = useStore();
-        const request = axios.create({
-            baseURL: "",
-            timeout: 5000,
-        });
         const loginFormState = reactive({
             name: "",
             pwd: "",
