@@ -66,6 +66,8 @@ export default {
         onMounted(() => {
             request.get("/api/getUserList").then((res) => {
                 tableData.value = res.data.data;
+            }).catch(err => {
+                ElMessage.error(err);
             });
         });
 
@@ -76,6 +78,8 @@ export default {
                 } else {
                     ElMessage.error(res.data.message);
                 }
+            }).catch(err => {
+                ElMessage.error(err);
             });
             data.showmode = false;
         };
@@ -87,6 +91,8 @@ export default {
                 } else {
                     ElMessage.error(res.data.message);
                 }
+            }).catch(err => {
+                ElMessage.error(err);
             });
             tableData.value = tableData.value.filter(item => item.name != data.name);
         };
@@ -98,6 +104,8 @@ export default {
                 } else {
                     ElMessage.error(res.data.message);
                 }
+            }).catch(err => {
+                ElMessage.error(err);
             });
             dialogFormVisible.value = false;
             tableData.value.push({ name: form.name, password: form.password });

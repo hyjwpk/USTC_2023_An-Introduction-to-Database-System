@@ -82,7 +82,9 @@ export default {
                         ElMessage.error(res.data.message);
                     }
                     loginFormState.loading = false;
-                })
+                }).catch(err => {
+                    ElMessage.error(err);
+                });
 
             });
         };
