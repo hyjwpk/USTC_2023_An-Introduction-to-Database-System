@@ -1,16 +1,35 @@
 import Mock from "mockjs"
 
+
+let userlist = [
+  {
+    name: "admin",
+    password: "123456"
+  },
+  {
+    name: "user",
+    password: "111111"
+  }
+]
+
+
 Mock.mock("/api/login", "post", (params) => {
-    let newData = JSON.parse(params.body);
-    if (newData.name === "admin" && newData.password === "123456") {
-      return {
-        code: "0",
-        message: "success"
-      };
-    }
+  let bodyData = JSON.parse(params.body);
+
+  let result = userlist.find(item => {
+    return item.name === bodyData.name && item.password === bodyData.password
+  }
+  )
+  console.log(result)
+  if (result) {
     return {
-      code: "1",
-      message: "fail"
+      code: "0",
+      message: "success"
     };
+  }
+  return {
+    code: "1",
+    message: "fail"
+  };
 })
 
