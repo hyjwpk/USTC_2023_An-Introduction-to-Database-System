@@ -72,9 +72,9 @@ export default {
         const handleEdit = (data) => {
             request.post("/api/editUser", { name: data.name, password: data.password }).then(res => {
                 if (res.data.code == 0) {
-                    ElMessage.success("修改成功");
+                    ElMessage.success(res.data.message);
                 } else {
-                    ElMessage.error(res.data.msg);
+                    ElMessage.error(res.data.message);
                 }
             });
             data.showmode = false;
@@ -83,9 +83,9 @@ export default {
         const handleDelete = (data) => {
             request.post("/api/deleteUser", { name: data.name }).then(res => {
                 if (res.data.code == 0) {
-                    ElMessage.success("删除成功");
+                    ElMessage.success(res.data.message);
                 } else {
-                    ElMessage.error(res.data.msg);
+                    ElMessage.error(res.data.message);
                 }
             });
             tableData.value = tableData.value.filter(item => item.name != data.name);
@@ -94,9 +94,9 @@ export default {
         const handleAdd = () => {
             request.post("/api/addUser", { name: form.name, password: form.password }).then(res => {
                 if (res.data.code == 0) {
-                    ElMessage.success("添加成功");
+                    ElMessage.success(res.data.message);
                 } else {
-                    ElMessage.error(res.data.msg);
+                    ElMessage.error(res.data.message);
                 }
             });
             dialogFormVisible.value = false;

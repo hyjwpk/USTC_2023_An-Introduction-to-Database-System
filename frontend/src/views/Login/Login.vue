@@ -76,10 +76,10 @@ export default {
                         let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
                         sessionStorage.setItem("jwt", JSON.stringify(params));
                         store.dispatch("setUser", params);
-                        ElMessage.success("登录成功");
+                        ElMessage.success(res.data.message);
                         router.replace("/");
                     } else {
-                        ElMessage.error("登录失败");
+                        ElMessage.error(res.data.message);
                     }
                     loginFormState.loading = false;
                 })
