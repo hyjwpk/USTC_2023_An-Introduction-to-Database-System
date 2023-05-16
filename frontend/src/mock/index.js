@@ -33,3 +33,29 @@ Mock.mock("/api/login", "post", (params) => {
   };
 })
 
+Mock.mock("/api/getUserList", "get", () => {
+  return {
+    data: userlist
+  };
+})
+
+Mock.mock("/api/editUser", "post", (params) =>
+{
+  let bodyData = JSON.parse(params.body);
+  let result = userlist.find(item => {
+    return item.name === bodyData.name
+  }
+  )
+  if (result) {
+    result.password = bodyData.password;
+    return {
+      code: "0",
+      message: "success"
+    };
+  }
+  return {
+    code: "1",
+    message: "fail"
+  };
+})
+

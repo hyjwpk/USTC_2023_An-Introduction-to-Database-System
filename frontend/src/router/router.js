@@ -3,6 +3,12 @@ import RouteView from "@/components/RouteView.vue";
 
 const layoutMap = [
     {
+        path: "user",
+        name: "User",
+        meta: { title: "用户列表", icon: "User", roles: ["admin"] },
+        component: () => import("@/views/Admin/UserList.vue")
+    },
+    {
         path: "data",
         name: "Data",
         component: RouteView,
@@ -11,7 +17,7 @@ const layoutMap = [
             {
                 path: "table",
                 name: "DataTable",
-                meta: { title: "数据表格", roles: ["admin"] },
+                meta: { title: "数据表格" },
                 component: () => import("@/views/Data/Table.vue")
             }
         ]
