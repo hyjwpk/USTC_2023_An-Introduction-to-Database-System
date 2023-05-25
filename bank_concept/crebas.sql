@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Sybase SQL Anywhere 12                       */
-/* Created on:     2023/5/17 22:42:48                           */
+/* Created on:     2023/5/25 19:36:26                           */
 /*==============================================================*/
 
 
@@ -49,6 +49,21 @@ if exists(select 1 from sys.sysforeignkey where role='FK_SERVE_SERVE2_CLIENT') t
        delete foreign key FK_SERVE_SERVE2_CLIENT
 end if;
 
+if exists(select 1 from sys.sysforeignkey where role='FK_CREDIT_U_CREDIT_UN_SUB_BANK') then
+    alter table credit_unique
+       delete foreign key FK_CREDIT_U_CREDIT_UN_SUB_BANK
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_CREDIT_U_CREDIT_UN_CREDIT_A') then
+    alter table credit_unique
+       delete foreign key FK_CREDIT_U_CREDIT_UN_CREDIT_A
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_CREDIT_U_CREDIT_UN_CLIENT') then
+    alter table credit_unique
+       delete foreign key FK_CREDIT_U_CREDIT_UN_CLIENT
+end if;
+
 if exists(select 1 from sys.sysforeignkey where role='FK_LOAN_LEND_BANK_SUB_BANK') then
     alter table loan
        delete foreign key FK_LOAN_LEND_BANK_SUB_BANK
@@ -57,6 +72,21 @@ end if;
 if exists(select 1 from sys.sysforeignkey where role='FK_LOAN_LEND_CLIE_CLIENT') then
     alter table loan
        delete foreign key FK_LOAN_LEND_CLIE_CLIENT
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_SAVING_U_SAVING_UN_SAVING_A') then
+    alter table saving_unique
+       delete foreign key FK_SAVING_U_SAVING_UN_SAVING_A
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_SAVING_U_SAVING_UN_SUB_BANK') then
+    alter table saving_unique
+       delete foreign key FK_SAVING_U_SAVING_UN_SUB_BANK
+end if;
+
+if exists(select 1 from sys.sysforeignkey where role='FK_SAVING_U_SAVING_UN_CLIENT') then
+    alter table saving_unique
+       delete foreign key FK_SAVING_U_SAVING_UN_CLIENT
 end if;
 
 drop index if exists Account.own_FK;
@@ -103,6 +133,16 @@ drop index if exists Serve.Serve_PK;
 
 drop table if exists Serve;
 
+drop index if exists credit_unique.credit_unique3_FK;
+
+drop index if exists credit_unique.credit_unique2_FK;
+
+drop index if exists credit_unique.credit_unique_FK;
+
+drop index if exists credit_unique.credit_unique_PK;
+
+drop table if exists credit_unique;
+
 drop index if exists loan.Lend_client_FK;
 
 drop index if exists loan.Lend_bank_FK;
@@ -110,6 +150,16 @@ drop index if exists loan.Lend_bank_FK;
 drop index if exists loan.loan_PK;
 
 drop table if exists loan;
+
+drop index if exists saving_unique.saving_unique3_FK;
+
+drop index if exists saving_unique.saving_unique2_FK;
+
+drop index if exists saving_unique.saving_unique_FK;
+
+drop index if exists saving_unique.saving_unique_PK;
+
+drop table if exists saving_unique;
 
 drop index if exists sub_bank.sub_bank_PK;
 
@@ -157,8 +207,6 @@ create table Client
 (
    Client_ID            integer                        not null,
    Real_name            char(30)                       null,
-   Virtual_name         char(30)                       null,
-   Client_password      char(30)                       null,
    Client_phone         integer                        null,
    Client_address       char(30)                       null,
    Client_email         char(30)                       null,
@@ -335,6 +383,47 @@ Client_ID ASC
 );
 
 /*==============================================================*/
+/* Table: credit_unique                                         */
+/*==============================================================*/
+create table credit_unique 
+(
+   bank_name            char(30)                       not null,
+   Accout_ID            integer                        not null,
+   Client_ID            integer                        not null,
+   constraint PK_CREDIT_UNIQUE primary key clustered (bank_name, Accout_ID, Client_ID)
+);
+
+/*==============================================================*/
+/* Index: credit_unique_PK                                      */
+/*==============================================================*/
+create unique clustered index credit_unique_PK on credit_unique (
+bank_name ASC,
+Accout_ID ASC,
+Client_ID ASC
+);
+
+/*==============================================================*/
+/* Index: credit_unique_FK                                      */
+/*==============================================================*/
+create index credit_unique_FK on credit_unique (
+bank_name ASC
+);
+
+/*==============================================================*/
+/* Index: credit_unique2_FK                                     */
+/*==============================================================*/
+create index credit_unique2_FK on credit_unique (
+Accout_ID ASC
+);
+
+/*==============================================================*/
+/* Index: credit_unique3_FK                                     */
+/*==============================================================*/
+create index credit_unique3_FK on credit_unique (
+Client_ID ASC
+);
+
+/*==============================================================*/
 /* Table: loan                                                  */
 /*==============================================================*/
 create table loan 
@@ -366,6 +455,47 @@ bank_name ASC
 /* Index: Lend_client_FK                                        */
 /*==============================================================*/
 create index Lend_client_FK on loan (
+Client_ID ASC
+);
+
+/*==============================================================*/
+/* Table: saving_unique                                         */
+/*==============================================================*/
+create table saving_unique 
+(
+   Accout_ID            integer                        not null,
+   bank_name            char(30)                       not null,
+   Client_ID            integer                        not null,
+   constraint PK_SAVING_UNIQUE primary key clustered (Accout_ID, bank_name, Client_ID)
+);
+
+/*==============================================================*/
+/* Index: saving_unique_PK                                      */
+/*==============================================================*/
+create unique clustered index saving_unique_PK on saving_unique (
+Accout_ID ASC,
+bank_name ASC,
+Client_ID ASC
+);
+
+/*==============================================================*/
+/* Index: saving_unique_FK                                      */
+/*==============================================================*/
+create index saving_unique_FK on saving_unique (
+Accout_ID ASC
+);
+
+/*==============================================================*/
+/* Index: saving_unique2_FK                                     */
+/*==============================================================*/
+create index saving_unique2_FK on saving_unique (
+bank_name ASC
+);
+
+/*==============================================================*/
+/* Index: saving_unique3_FK                                     */
+/*==============================================================*/
+create index saving_unique3_FK on saving_unique (
 Client_ID ASC
 );
 
@@ -441,6 +571,24 @@ alter table Serve
       on update restrict
       on delete restrict;
 
+alter table credit_unique
+   add constraint FK_CREDIT_U_CREDIT_UN_SUB_BANK foreign key (bank_name)
+      references sub_bank (bank_name)
+      on update restrict
+      on delete restrict;
+
+alter table credit_unique
+   add constraint FK_CREDIT_U_CREDIT_UN_CREDIT_A foreign key (Accout_ID)
+      references Credit_account (Accout_ID)
+      on update restrict
+      on delete restrict;
+
+alter table credit_unique
+   add constraint FK_CREDIT_U_CREDIT_UN_CLIENT foreign key (Client_ID)
+      references Client (Client_ID)
+      on update restrict
+      on delete restrict;
+
 alter table loan
    add constraint FK_LOAN_LEND_BANK_SUB_BANK foreign key (bank_name)
       references sub_bank (bank_name)
@@ -449,6 +597,24 @@ alter table loan
 
 alter table loan
    add constraint FK_LOAN_LEND_CLIE_CLIENT foreign key (Client_ID)
+      references Client (Client_ID)
+      on update restrict
+      on delete restrict;
+
+alter table saving_unique
+   add constraint FK_SAVING_U_SAVING_UN_SAVING_A foreign key (Accout_ID)
+      references Saving_account (Accout_ID)
+      on update restrict
+      on delete restrict;
+
+alter table saving_unique
+   add constraint FK_SAVING_U_SAVING_UN_SUB_BANK foreign key (bank_name)
+      references sub_bank (bank_name)
+      on update restrict
+      on delete restrict;
+
+alter table saving_unique
+   add constraint FK_SAVING_U_SAVING_UN_CLIENT foreign key (Client_ID)
       references Client (Client_ID)
       on update restrict
       on delete restrict;
