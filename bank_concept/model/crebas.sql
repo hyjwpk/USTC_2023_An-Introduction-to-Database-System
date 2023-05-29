@@ -31,6 +31,16 @@ create table Credit_account
    constraint PK_CREDIT_ACCOUNT primary key clustered (Accout_ID)
 );
 
+create table Department 
+(
+   depart_no            integer                        not null,
+   bank_name            char(30)                       not null,
+   ID                   integer                        not null,
+   depart_name          char(30)                       null,
+   depart_type          char(30)                       null,
+   constraint PK_DEPARTMENT primary key (depart_no)
+);
+
 create table Manager 
 (
    ID                   integer                        not null,
@@ -145,6 +155,24 @@ alter table Credit_account
       on update restrict
       on delete restrict;
 
+alter table Department
+   add constraint FK_DEPARTME_INCLUDE_SUB_BANK foreign key (bank_name)
+      references sub_bank (bank_name)
+      on update restrict
+      on delete restrict;
+
+alter table Department
+   add constraint FK_DEPARTME_MANAGE2_MANAGER foreign key (ID)
+      references Manager (ID)
+      on update restrict
+      on delete restrict;
+
+alter table Manager
+   add constraint FK_MANAGER_MANAGE_DEPARTME foreign key (depart_no)
+      references Department (depart_no)
+      on update restrict
+      on delete restrict;
+
 alter table Manager
    add constraint FK_MANAGER_PROMOTE_MEMBER foreign key (ID)
       references Member (ID)
@@ -154,6 +182,12 @@ alter table Manager
 alter table Member
    add constraint FK_MEMBER_EMPLOY_SUB_BANK foreign key (bank_name)
       references sub_bank (bank_name)
+      on update restrict
+      on delete restrict;
+
+alter table Member
+   add constraint FK_MEMBER_WORK_IN_DEPARTME foreign key (depart_no)
+      references Department (depart_no)
       on update restrict
       on delete restrict;
 
