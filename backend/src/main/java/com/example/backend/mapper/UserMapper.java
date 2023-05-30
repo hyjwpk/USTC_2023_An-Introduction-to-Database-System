@@ -1,6 +1,6 @@
 package com.example.backend.mapper;
 
-import com.example.backend.Book.User;
+import com.example.backend.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

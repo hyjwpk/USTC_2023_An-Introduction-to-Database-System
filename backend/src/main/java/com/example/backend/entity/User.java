@@ -1,4 +1,4 @@
-package com.example.backend.Book;
+package com.example.backend.entity;
 
 import lombok.Data;
 
