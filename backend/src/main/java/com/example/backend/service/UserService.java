@@ -4,7 +4,6 @@ import com.example.backend.entity.User;
 import com.example.backend.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +11,13 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    @Autowired
+    final
     UserMapper bookMapper;
+
+    @Autowired
+    public UserService(UserMapper bookMapper) {
+        this.bookMapper = bookMapper;
+    }
 
     public Map<String, String> login(User user) {
         Map<String, String> map = new HashMap<>();

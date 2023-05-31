@@ -10,14 +10,14 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("select name, password from user")
-    public List<User> getUserList();
+    List<User> getUserList();
 
     @Select("update user set password = #{password} where name = #{name}")
-    public void editUser(User user);
+    void editUser(User user);
 
     @Select("insert into user(name, password) values(#{name}, #{password})")
-    public void addUser(User user);
+    void addUser(User user);
 
     @Select("delete from user where name = #{name}")
-    public void deleteUser(User user);
+    void deleteUser(User user);
 }
