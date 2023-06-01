@@ -45,8 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/page")
-    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size) {
-        return userService.page(page, size);
+    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String name) {
+        return userService.page(page, size, name);
     }
 }
 

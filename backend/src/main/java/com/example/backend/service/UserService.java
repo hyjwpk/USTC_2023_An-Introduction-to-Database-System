@@ -64,10 +64,10 @@ public class UserService {
         return map;
     }
 
-    public Map<String, Object> page(Integer page, Integer size) {
+    public Map<String, Object> page(Integer page, Integer size, String name) {
         Integer start = (page - 1) * size;
-        Integer count = bookMapper.count();
-        List<User> userList = bookMapper.page(start, size);
+        Integer count = bookMapper.count(name);
+        List<User> userList = bookMapper.page(start, size, name);
         Map<String, Object> map = new HashMap<>();
         map.put("data", userList);
         map.put("count", count);
