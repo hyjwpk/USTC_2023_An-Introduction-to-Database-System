@@ -43,5 +43,10 @@ public class UserController {
     public Map<String, String> deleteUser(@RequestBody User user) {
         return userService.deleteUser(user);
     }
+
+    @GetMapping("/page")
+    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size) {
+        return userService.page(page, size);
+    }
 }
 

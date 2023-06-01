@@ -20,4 +20,10 @@ public interface UserMapper {
 
     @Select("delete from user where name = #{name}")
     void deleteUser(User user);
+
+    @Select("select count(*) from user")
+    Integer count();
+
+    @Select("select name, password from user limit #{start}, #{size}")
+    List<User> page(Integer start, Integer size);
 }

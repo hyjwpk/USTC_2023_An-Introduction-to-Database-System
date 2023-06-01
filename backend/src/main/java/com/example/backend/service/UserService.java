@@ -63,4 +63,14 @@ public class UserService {
         map.put("message", "删除成功");
         return map;
     }
+
+    public Map<String, Object> page(Integer page, Integer size) {
+        Integer start = (page - 1) * size;
+        Integer count = bookMapper.count();
+        List<User> userList = bookMapper.page(start, size);
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", userList);
+        map.put("count", count);
+        return map;
+    }
 }
