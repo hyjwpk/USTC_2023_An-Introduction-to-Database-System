@@ -23,7 +23,7 @@ INSERT INTO `bank`.`client` (`Client_ID`, `Real_name`, `Client_phone`, `Client_a
 INSERT INTO `bank`.`client` (`Client_ID`, `Real_name`, `Client_phone`, `Client_address`, `Client_email`) VALUES ('280800000000000000', '锦木千束', '12345678901', 'LycoReco', 'chisato@qq.com');
 INSERT INTO `bank`.`client` (`Client_ID`, `Real_name`, `Client_phone`, `Client_address`, `Client_email`) VALUES ('302300000000000000', '井之上泷奈', '12345678909', 'LycoReco', 'takina@qq.com');
 
-INSERT INTO `bank`.`loan` (`Loan_ID`, `Client_ID`, `bank_name`, `Loan_total`, `Loan_datw`, `Loan_rate`) VALUES ('10', '302300000000000000', 'xx1分行', '10000', '2022-11-11', '0.05');
+INSERT INTO `bank`.`loan` (`Loan_ID`, `Client_ID`, `bank_name`, `Loan_total`, `remain_loan`, `Loan_date`, `Loan_rate`) VALUES ('10', '302300000000000000', 'xx1分行', '10000', '10000', '2022-11-11', '0.05');
 
 INSERT INTO `bank`.`pay_status` (`Pay_ID`, `Loan_ID`, `Pay_money`, `Pay_date`) VALUES ('11', '10', '1000', '2022-12-12');
 INSERT INTO `bank`.`pay_status` (`Pay_ID`, `Loan_ID`, `Pay_money`, `Pay_date`) VALUES ('12', '10', '3000', '2023-3-1');

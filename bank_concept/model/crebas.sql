@@ -1,6 +1,3 @@
-/*==============================================================*/
-/* Table: Client                                                */
-/*==============================================================*/
 create table Client 
 (
    Client_ID            char(18)                       not null,
@@ -11,9 +8,6 @@ create table Client
    constraint PK_CLIENT primary key (Client_ID)
 );
 
-/*==============================================================*/
-/* Table: Credit_account                                        */
-/*==============================================================*/
 create table Credit_account 
 (
    Accout_ID            integer                        not null,
@@ -26,9 +20,6 @@ create table Credit_account
    constraint PK_CREDIT_ACCOUNT primary key clustered (Accout_ID)
 );
 
-/*==============================================================*/
-/* Table: Department                                            */
-/*==============================================================*/
 create table Department 
 (
    depart_no            integer                        not null,
@@ -39,9 +30,6 @@ create table Department
    constraint PK_DEPARTMENT primary key (depart_no)
 );
 
-/*==============================================================*/
-/* Table: Member                                                */
-/*==============================================================*/
 create table Member 
 (
    ID                   integer                        not null,
@@ -59,9 +47,6 @@ create table Member
    constraint PK_MEMBER primary key (ID)
 );
 
-/*==============================================================*/
-/* Table: Pay_status                                            */
-/*==============================================================*/
 create table Pay_status 
 (
    Pay_ID               char(30)                       not null,
@@ -71,9 +56,6 @@ create table Pay_status
    constraint PK_PAY_STATUS primary key (Pay_ID)
 );
 
-/*==============================================================*/
-/* Table: Saving_account                                        */
-/*==============================================================*/
 create table Saving_account 
 (
    Accout_ID            integer                        not null,
@@ -86,9 +68,6 @@ create table Saving_account
    constraint PK_SAVING_ACCOUNT primary key clustered (Accout_ID)
 );
 
-/*==============================================================*/
-/* Table: Serve                                                 */
-/*==============================================================*/
 create table Serve 
 (
    ID                   integer                        not null,
@@ -96,9 +75,6 @@ create table Serve
    constraint PK_SERVE primary key clustered (ID, Client_ID)
 );
 
-/*==============================================================*/
-/* Table: credit_unique                                         */
-/*==============================================================*/
 create table credit_unique 
 (
    bank_name            char(30)                       not null,
@@ -107,23 +83,18 @@ create table credit_unique
    constraint PK_CREDIT_UNIQUE primary key clustered (bank_name, Accout_ID, Client_ID)
 );
 
-/*==============================================================*/
-/* Table: loan                                                  */
-/*==============================================================*/
 create table loan 
 (
    Loan_ID              integer                        not null,
    Client_ID            char(18)                       not null,
    bank_name            char(30)                       not null,
    Loan_total           integer                        null,
-   Loan_datw            date                           null,
+   remain_loan          integer                        null,
+   Loan_date            date                           null,
    Loan_rate            float                          null,
    constraint PK_LOAN primary key (Loan_ID)
 );
 
-/*==============================================================*/
-/* Table: saving_unique                                         */
-/*==============================================================*/
 create table saving_unique 
 (
    Accout_ID            integer                        not null,
@@ -132,9 +103,6 @@ create table saving_unique
    constraint PK_SAVING_UNIQUE primary key clustered (Accout_ID, bank_name, Client_ID)
 );
 
-/*==============================================================*/
-/* Table: sub_bank                                              */
-/*==============================================================*/
 create table sub_bank 
 (
    bank_name            char(30)                       not null,
