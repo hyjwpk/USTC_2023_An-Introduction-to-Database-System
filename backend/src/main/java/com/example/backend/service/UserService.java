@@ -12,16 +12,16 @@ import java.util.Map;
 @Service
 public class UserService {
     final
-    UserMapper bookMapper;
+    UserMapper userMapper;
 
     @Autowired
     public UserService(UserMapper bookMapper) {
-        this.bookMapper = bookMapper;
+        this.userMapper = bookMapper;
     }
 
     public Map<String, String> login(User user) {
         Map<String, String> map = new HashMap<>();
-        List<User> userList = bookMapper.getUserList();
+        List<User> userList = userMapper.getUserList();
         for (User u : userList) {
             if (u.getName().equals(user.getName()) && u.getPassword().equals(user.getPassword())) {
                 map.put("code", "0");
@@ -36,13 +36,13 @@ public class UserService {
 
     public Map<String, List<User>> getUserList() {
         Map<String, List<User>> map = new HashMap<>();
-        map.put("data", bookMapper.getUserList());
+        map.put("data", userMapper.getUserList());
         return map;
     }
 
     public Map<String, String> editUser(User user) {
         Map<String, String> map = new HashMap<>();
-        bookMapper.editUser(user);
+        userMapper.editUser(user);
         map.put("code", "0");
         map.put("message", "修改成功");
         return map;
@@ -50,7 +50,7 @@ public class UserService {
 
     public Map<String, String> addUser(User user) {
         Map<String, String> map = new HashMap<>();
-        bookMapper.addUser(user);
+        userMapper.addUser(user);
         map.put("code", "0");
         map.put("message", "添加成功");
         return map;
@@ -58,7 +58,7 @@ public class UserService {
 
     public Map<String, String> deleteUser(User user) {
         Map<String, String> map = new HashMap<>();
-        bookMapper.deleteUser(user);
+        userMapper.deleteUser(user);
         map.put("code", "0");
         map.put("message", "删除成功");
         return map;
@@ -66,8 +66,8 @@ public class UserService {
 
     public Map<String, Object> page(Integer page, Integer size, String name) {
         Integer start = (page - 1) * size;
-        Integer count = bookMapper.count(name);
-        List<User> userList = bookMapper.page(start, size, name);
+        Integer count = userMapper.count(name);
+        List<User> userList = userMapper.page(start, size, name);
         Map<String, Object> map = new HashMap<>();
         map.put("data", userList);
         map.put("count", count);
