@@ -135,9 +135,10 @@ export default {
         const pageSize = ref(2);
         const count = ref(0);
         const name = ref("");
+        const baseurl = "/client";
 
         const load = () => {
-            request({ url: "/client/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
+            request({ url: baseurl + "/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
                 tableData.value = res.data.data;
                 count.value = res.data.count;
             }).catch(err => {
@@ -150,7 +151,7 @@ export default {
         });
 
         const handleEdit = (data) => {
-            request.post("/client/edit", { client_ID: data.client_ID, real_name: data.real_name, client_phone: data.client_phone, client_address: data.client_address, client_email: data.client_email }).then(res => {
+            request.post(baseurl + "/edit", data).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                 } else {
@@ -163,7 +164,7 @@ export default {
         };
 
         const handleDelete = (data) => {
-            request.post("/client/delete", { client_ID: data.client_ID }).then(res => {
+            request.post(baseurl + "/delete", data).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -186,7 +187,7 @@ export default {
         };
 
         const handleAdd = () => {
-            request.post("/client/add", { client_ID: addForm.client_ID, real_name: addForm.real_name, client_phone: addForm.client_phone, client_address: addForm.client_address, client_email: addForm.client_email }).then(res => {
+            request.post(baseurl + "/add", addForm).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -197,22 +198,18 @@ export default {
                 ElMessage.error(err);
             });
             addDialogFormVisible.value = false;
-            addForm.client_ID = "";
-            addForm.real_name = "";
-            addForm.client_phone = "";
-            addForm.client_address = "";
-            addForm.client_email = "";
+            Object.keys(addForm).forEach(key => {
+                addForm[key] = "";
+            });
         };
 
         const handleSearch = () => {
             name.value = searchForm.name;
             load();
             searchDialogFormVisible.value = false;
-            searchForm.client_ID = "";
-            searchForm.real_name = "";
-            searchForm.client_phone = "";
-            searchForm.client_address = "";
-            searchForm.client_email = "";
+            Object.keys(searchForm).forEach(key => {
+                searchForm[key] = "";
+            });
         };
         return {
             tableData,
