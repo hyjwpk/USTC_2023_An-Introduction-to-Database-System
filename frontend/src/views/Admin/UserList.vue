@@ -91,7 +91,7 @@ export default {
         const name = ref("");
 
         const load = () => {
-            request.get("/api/page", { params: { page: currentPage.value, size: pageSize.value, name: name.value } }).then(res => {
+            request.get("/user/page", { params: { page: currentPage.value, size: pageSize.value, name: name.value } }).then(res => {
                 tableData.value = res.data.data;
                 count.value = res.data.count;
             }).catch(err => {
@@ -104,7 +104,7 @@ export default {
         });
 
         const handleEdit = (data) => {
-            request.post("/api/editUser", { name: data.name, password: data.password }).then(res => {
+            request.post("/user/editUser", { name: data.name, password: data.password }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                 } else {
@@ -117,7 +117,7 @@ export default {
         };
 
         const handleDelete = (data) => {
-            request.post("/api/deleteUser", { name: data.name }).then(res => {
+            request.post("/user/deleteUser", { name: data.name }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -140,7 +140,7 @@ export default {
         };
 
         const handleAdd = () => {
-            request.post("/api/addUser", { name: addForm.name, password: addForm.password }).then(res => {
+            request.post("/user/addUser", { name: addForm.name, password: addForm.password }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -151,6 +151,8 @@ export default {
                 ElMessage.error(err);
             });
             addUserDialogFormVisible.value = false;
+            addForm.name = "";
+            addForm.password = "";
         };
 
         const handleSearch = () => {

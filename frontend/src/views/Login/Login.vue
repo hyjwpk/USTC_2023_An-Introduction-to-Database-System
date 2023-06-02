@@ -67,7 +67,7 @@ export default {
                 }
 
                 loginFormState.loading = true;
-                request.post("/api/login", { name: loginFormState.name, password: loginFormState.pwd }).then(res => {
+                request.post("/user/login", { name: loginFormState.name, password: loginFormState.pwd }).then(res => {
                     if (res.data.code == 0) {
                         let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
                         sessionStorage.setItem("jwt", JSON.stringify(params));
