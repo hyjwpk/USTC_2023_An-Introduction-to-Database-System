@@ -137,7 +137,7 @@ export default {
         const name = ref("");
 
         const load = () => {
-            request.get("/client/page", { params: { page: currentPage.value, size: pageSize.value, client_ID: searchForm.client_ID, real_name: searchForm.real_name, client_phone: searchForm.client_phone, client_address: searchForm.client_address, client_email: searchForm.client_email } }).then(res => {
+            request({ url: "/client/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
                 tableData.value = res.data.data;
                 count.value = res.data.count;
             }).catch(err => {

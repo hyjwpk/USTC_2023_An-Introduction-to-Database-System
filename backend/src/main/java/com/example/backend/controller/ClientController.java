@@ -39,9 +39,9 @@ public class ClientController {
         return clientService.delete(client);
     }
 
-    @GetMapping("/page")
-    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String client_ID, @RequestParam String real_name, @RequestParam String client_phone, @RequestParam String client_address, @RequestParam String client_email) {
-        return clientService.page(page, size, client_ID, real_name, client_phone, client_address, client_email);
+    @PostMapping("/page")
+    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Client client) {
+        return clientService.page(page, size, client);
     }
 }
 

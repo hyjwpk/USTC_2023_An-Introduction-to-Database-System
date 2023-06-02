@@ -14,8 +14,8 @@ public class ClientService {
     final ClientMapper clientMapper;
 
     @Autowired
-    public ClientService(ClientMapper bookMapper) {
-        this.clientMapper = bookMapper;
+    public ClientService(ClientMapper clientMapper) {
+        this.clientMapper = clientMapper;
     }
 
     public Map<String, List<Client>> getList() {
@@ -48,10 +48,10 @@ public class ClientService {
         return map;
     }
 
-    public Map<String, Object> page(Integer page, Integer size, String client_ID, String real_name, String client_phone, String client_address, String client_email) {
+    public Map<String, Object> page(Integer page, Integer size, Client client) {
         Integer start = (page - 1) * size;
-        Integer count = clientMapper.count(client_ID, real_name, client_phone, client_address, client_email);
-        List<Client> ClientList = clientMapper.page(start, size, client_ID, real_name, client_phone, client_address, client_email);
+        Integer count = clientMapper.count(client);
+        List<Client> ClientList = clientMapper.page(start, size, client);
         Map<String, Object> map = new HashMap<>();
         map.put("data", ClientList);
         map.put("count", count);
