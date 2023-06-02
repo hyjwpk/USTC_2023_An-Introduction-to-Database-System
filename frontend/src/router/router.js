@@ -18,19 +18,19 @@ const layoutMap = [
                 path: "department",
                 name: "Department",
                 meta: { title: "部门" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Department/Department.vue")
             },
             {
                 path: "member",
                 name: "Member",
                 meta: { title: "员工" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Department/Member.vue")
             },
             {
                 path: "serve",
                 name: "Serve",
                 meta: { title: "服务" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Department/Serve.vue")
             }
         ]
     },
@@ -44,19 +44,19 @@ const layoutMap = [
                 path: "client",
                 name: "Client",
                 meta: { title: "客户" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Client/Client.vue")
             },
             {
                 path: "credit_account",
                 name: "Credit_account",
                 meta: { title: "信用账户" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Client/Credit_account.vue")
             },
             {
                 path: "saving_account",
                 name: "Saving_account",
                 meta: { title: "储蓄账户" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Client/Saving_account.vue")
             }
         ]
     },
@@ -70,13 +70,13 @@ const layoutMap = [
                 path: "loan",
                 name: "Loan",
                 meta: { title: "贷款" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Loan/Loan.vue")
             },
             {
                 path: "pay_status",
                 name: "Pay_status",
                 meta: { title: "支付情况" },
-                component: () => import("@/views/Data/Table.vue")
+                component: () => import("@/views/Loan/Pay_status.vue")
             }
         ]
     }

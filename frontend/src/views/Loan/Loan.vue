@@ -2,7 +2,7 @@
   <el-card shadow="never" class="index">
     <template #header>
       <div class="card_header">
-        <b>表单数据</b>
+        <b>贷款</b>
       </div>
     </template>
     <el-empty description="暂无数据"></el-empty>
