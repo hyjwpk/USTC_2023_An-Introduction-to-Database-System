@@ -33,13 +33,13 @@ INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('3', '234234000000000000'
 INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('100', '280800000000000000');
 INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('100', '302300000000000000');
 
-INSERT INTO `bank`.`credit_account` (`Accout_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('1', '123123200203150000', 'xx1分行', '123123', '3000', '2023-3-1', '10000');
+INSERT INTO `bank`.`credit_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('1', '123123200203150000', 'xx1分行', '123123', '3000', '2023-3-1', '10000');
 
-INSERT INTO `bank`.`credit_unique` (`bank_name`, `Accout_ID`, `Client_ID`) VALUES ('xx1分行', '1', '123123200203150000');
+INSERT INTO `bank`.`credit_unique` (`bank_name`, `Account_ID`, `Client_ID`) VALUES ('xx1分行', '1', '123123200203150000');
 
-INSERT INTO `bank`.`saving_account` (`Accout_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `interest_rate`) VALUES ('2', '280800000000000000', 'xx1分行', '123456', '5000', '2023-2-1', '0.03');
+INSERT INTO `bank`.`saving_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `interest_rate`) VALUES ('2', '280800000000000000', 'xx1分行', '123456', '5000', '2023-2-1', '0.03');
 
-INSERT INTO `bank`.`saving_unique` (`Accout_ID`, `bank_name`, `Client_ID`) VALUES ('2', 'xx1分行', '280800000000000000');
+INSERT INTO `bank`.`saving_unique` (`Account_ID`, `bank_name`, `Client_ID`) VALUES ('2', 'xx1分行', '280800000000000000');
 
 CREATE table user
 (  

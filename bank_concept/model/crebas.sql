@@ -10,14 +10,14 @@ create table Client
 
 create table Credit_account 
 (
-   Accout_ID            integer                        not null,
+   Account_ID           integer                        not null,
    Client_ID            char(18)                       not null,
    bank_name            char(30)                       not null,
    Password             char(20)                       null,
    Remaining            integer                        null,
    Open_date            date                           null,
    overdraft            integer                        null,
-   constraint PK_CREDIT_ACCOUNT primary key clustered (Accout_ID)
+   constraint PK_CREDIT_ACCOUNT primary key clustered (Account_ID)
 );
 
 create table Department 
@@ -58,14 +58,14 @@ create table Pay_status
 
 create table Saving_account 
 (
-   Accout_ID            integer                        not null,
+   Account_ID           integer                        not null,
    Client_ID            char(18)                       not null,
    bank_name            char(30)                       not null,
    Password             char(20)                       null,
    Remaining            integer                        null,
    Open_date            date                           null,
    interest_rate        float                          null,
-   constraint PK_SAVING_ACCOUNT primary key clustered (Accout_ID)
+   constraint PK_SAVING_ACCOUNT primary key clustered (Account_ID)
 );
 
 create table Serve 
@@ -78,9 +78,9 @@ create table Serve
 create table credit_unique 
 (
    bank_name            char(30)                       not null,
-   Accout_ID            integer                        not null,
+   Account_ID           integer                        not null,
    Client_ID            char(18)                       not null,
-   constraint PK_CREDIT_UNIQUE primary key clustered (bank_name, Accout_ID, Client_ID)
+   constraint PK_CREDIT_UNIQUE primary key clustered (bank_name, Account_ID, Client_ID)
 );
 
 create table loan 
@@ -97,10 +97,10 @@ create table loan
 
 create table saving_unique 
 (
-   Accout_ID            integer                        not null,
+   Account_ID           integer                        not null,
    bank_name            char(30)                       not null,
    Client_ID            char(18)                       not null,
-   constraint PK_SAVING_UNIQUE primary key clustered (Accout_ID, bank_name, Client_ID)
+   constraint PK_SAVING_UNIQUE primary key clustered (Account_ID, bank_name, Client_ID)
 );
 
 create table sub_bank 
@@ -190,8 +190,8 @@ alter table credit_unique
       on delete restrict;
 
 alter table credit_unique
-   add constraint FK_CREDIT_U_CREDIT_UN_CREDIT_A foreign key (Accout_ID)
-      references Credit_account (Accout_ID)
+   add constraint FK_CREDIT_U_CREDIT_UN_CREDIT_A foreign key (Account_ID)
+      references Credit_account (Account_ID)
       on update restrict
       on delete restrict;
 
@@ -214,8 +214,8 @@ alter table loan
       on delete restrict;
 
 alter table saving_unique
-   add constraint FK_SAVING_U_SAVING_UN_SAVING_A foreign key (Accout_ID)
-      references Saving_account (Accout_ID)
+   add constraint FK_SAVING_U_SAVING_UN_SAVING_A foreign key (Account_ID)
+      references Saving_account (Account_ID)
       on update restrict
       on delete restrict;
 
