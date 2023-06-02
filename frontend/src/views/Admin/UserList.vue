@@ -4,7 +4,7 @@
             <div class="card_header">
                 <b>用户列表</b>
                 <div>
-                    <el-button color="#056DE8" @click="addUserDialogFormVisible = true">增加</el-button>
+                    <el-button color="#056DE8" @click="addDialogFormVisible = true">增加</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 @current-change="handleCurrentChange" />
         </div>
 
-        <el-dialog v-model="addUserDialogFormVisible" title="增加用户">
+        <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
                 <el-form-item label="用户名" label-width=100px>
                     <el-input v-model="addForm.name" autocomplete="off" />
@@ -45,13 +45,13 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button @click="addUserDialogFormVisible = false">取消</el-button>
+                    <el-button @click="addDialogFormVisible = false">取消</el-button>
                     <el-button type="primary" @click="handleAdd()">确定</el-button>
                 </span>
             </template>
         </el-dialog>
 
-        <el-dialog v-model="searchDialogFormVisible" title="搜索用户">
+        <el-dialog v-model="searchDialogFormVisible" title="搜索">
             <el-form :model="searchForm">
                 <el-form-item label="用户名" label-width=100px>
                     <el-input v-model="searchForm.name" autocomplete="off" />
@@ -76,7 +76,7 @@ import { ElMessage } from "element-plus";
 export default {
     setup() {
         const tableData = ref([])
-        const addUserDialogFormVisible = ref(false);
+        const addDialogFormVisible = ref(false);
         const searchDialogFormVisible = ref(false);
         const addForm = reactive({
             name: "",
@@ -150,7 +150,7 @@ export default {
             }).catch(err => {
                 ElMessage.error(err);
             });
-            addUserDialogFormVisible.value = false;
+            addDialogFormVisible.value = false;
             addForm.name = "";
             addForm.password = "";
         };
@@ -159,10 +159,11 @@ export default {
             name.value = searchForm.name;
             load();
             searchDialogFormVisible.value = false;
+            searchForm.name = "";
         };
         return {
             tableData,
-            addUserDialogFormVisible,
+            addDialogFormVisible,
             searchDialogFormVisible,
             addForm,
             searchForm,
