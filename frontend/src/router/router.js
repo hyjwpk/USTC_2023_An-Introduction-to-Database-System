@@ -9,15 +9,73 @@ const layoutMap = [
         component: () => import("@/views/Admin/UserList.vue")
     },
     {
-        path: "data",
-        name: "Data",
+        path: "department",
+        name: "Department",
         component: RouteView,
-        meta: { title: "数据管理", icon: "DataLine" },
+        meta: { title: "部门管理", icon: "Document" },
         children: [
             {
-                path: "table",
-                name: "DataTable",
-                meta: { title: "数据表格" },
+                path: "department",
+                name: "Department",
+                meta: { title: "部门" },
+                component: () => import("@/views/Data/Table.vue")
+            },
+            {
+                path: "member",
+                name: "Member",
+                meta: { title: "员工" },
+                component: () => import("@/views/Data/Table.vue")
+            },
+            {
+                path: "serve",
+                name: "Serve",
+                meta: { title: "服务" },
+                component: () => import("@/views/Data/Table.vue")
+            }
+        ]
+    },
+    {
+        path: "client",
+        name: "Client",
+        component: RouteView,
+        meta: { title: "客户管理", icon: "DataLine" },
+        children: [
+            {
+                path: "client",
+                name: "Client",
+                meta: { title: "客户" },
+                component: () => import("@/views/Data/Table.vue")
+            },
+            {
+                path: "credit_account",
+                name: "Credit_account",
+                meta: { title: "信用账户" },
+                component: () => import("@/views/Data/Table.vue")
+            },
+            {
+                path: "saving_account",
+                name: "Saving_account",
+                meta: { title: "储蓄账户" },
+                component: () => import("@/views/Data/Table.vue")
+            }
+        ]
+    },
+    {
+        path: "loan",
+        name: "Loan",
+        component: RouteView,
+        meta: { title: "贷款管理", icon: "Coin" },
+        children: [
+            {
+                path: "loan",
+                name: "Loan",
+                meta: { title: "贷款" },
+                component: () => import("@/views/Data/Table.vue")
+            },
+            {
+                path: "pay_status",
+                name: "Pay_status",
+                meta: { title: "支付情况" },
                 component: () => import("@/views/Data/Table.vue")
             }
         ]
