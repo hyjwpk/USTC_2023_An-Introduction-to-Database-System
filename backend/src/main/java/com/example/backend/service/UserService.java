@@ -11,12 +11,11 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    final
-    UserMapper userMapper;
+    final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserMapper bookMapper) {
-        this.userMapper = bookMapper;
+    public UserService(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     public Map<String, String> login(User user) {

@@ -11,8 +11,7 @@ import java.util.Map;
 
 @Service
 public class ClientService {
-    final
-    ClientMapper clientMapper;
+    final ClientMapper clientMapper;
 
     @Autowired
     public ClientService(ClientMapper bookMapper) {
@@ -25,25 +24,25 @@ public class ClientService {
         return map;
     }
 
-    public Map<String, String> editClient(Client Client) {
+    public Map<String, String> editClient(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.editClient(Client);
+        clientMapper.editClient(client);
         map.put("code", "0");
         map.put("message", "修改成功");
         return map;
     }
 
-    public Map<String, String> addClient(Client Client) {
+    public Map<String, String> addClient(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.addClient(Client);
+        clientMapper.addClient(client);
         map.put("code", "0");
         map.put("message", "添加成功");
         return map;
     }
 
-    public Map<String, String> deleteClient(Client Client) {
+    public Map<String, String> deleteClient(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.deleteClient(Client);
+        clientMapper.deleteClient(client);
         map.put("code", "0");
         map.put("message", "删除成功");
         return map;

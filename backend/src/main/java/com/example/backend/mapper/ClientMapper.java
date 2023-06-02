@@ -12,13 +12,13 @@ public interface ClientMapper {
     List<Client> getClientList();
 
     @Update("update client set real_name = #{real_name}, client_phone = #{client_phone}, client_address = #{client_address}, client_email = #{client_email} where client_ID = #{client_ID}")
-    void editClient(Client user);
+    void editClient(Client client);
 
     @Insert("insert into client(client_ID, real_name, client_phone, client_address, client_email) values(#{client_ID}, #{real_name}, #{client_phone}, #{client_address}, #{client_email})")
-    void addClient(Client user);
+    void addClient(Client client);
 
     @Delete("delete from client where client_ID = #{client_ID}")
-    void deleteClient(Client user);
+    void deleteClient(Client client);
 
     @Select("select count(*) from client where client_ID like concat('%', #{client_ID}, '%') and real_name like concat('%', #{real_name}, '%') and client_phone like concat('%', #{client_phone}, '%') and client_address like concat('%', #{client_address}, '%') and client_email like concat('%', #{client_email}, '%')")
     Integer count(String client_ID, String real_name, String client_phone, String client_address, String client_email);

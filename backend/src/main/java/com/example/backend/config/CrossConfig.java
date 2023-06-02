@@ -8,11 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CrossConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowedMethods("GET", "HEAD", "POST", "DELETE", "OPTIONS", "PUT")
-                .allowCredentials(true)
-                .maxAge(3600)
-                .allowedHeaders("*");
+        registry.addMapping("/**").allowedOriginPatterns("*").allowedMethods("GET", "HEAD", "POST", "DELETE", "OPTIONS", "PUT").allowCredentials(true).maxAge(3600).allowedHeaders("*");
     }
 }
