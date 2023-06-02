@@ -4,7 +4,7 @@
             <div class="card_header">
                 <b>用户列表</b>
                 <div>
-                    <el-button color="#056DE8" @click="addUserDialogFormVisible = true">增加用户</el-button>
+                    <el-button color="#056DE8" @click="addUserDialogFormVisible = true">增加</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
                 </div>
             </div>
