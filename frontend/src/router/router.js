@@ -6,7 +6,7 @@ const layoutMap = [
         path: "user",
         name: "User",
         meta: { title: "用户列表", icon: "User", roles: ["admin"] },
-        component: () => import("@/views/Admin/UserList.vue")
+        component: () => import("@/views/Admin/User.vue")
     },
     {
         path: "department",

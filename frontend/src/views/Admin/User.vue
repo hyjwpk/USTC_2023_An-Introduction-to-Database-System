@@ -89,9 +89,10 @@ export default {
         const pageSize = ref(2);
         const count = ref(0);
         const name = ref("");
+        const baseurl = "/user";
 
         const load = () => {
-            request.get("/user/page", { params: { page: currentPage.value, size: pageSize.value, name: name.value } }).then(res => {
+            request.get(baseurl + "/page", { params: { page: currentPage.value, size: pageSize.value, name: name.value } }).then(res => {
                 tableData.value = res.data.data;
                 count.value = res.data.count;
             }).catch(err => {
@@ -104,7 +105,7 @@ export default {
         });
 
         const handleEdit = (data) => {
-            request.post("/user/edit", { name: data.name, password: data.password }).then(res => {
+            request.post(baseurl + "/edit", data).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                 } else {
@@ -117,7 +118,7 @@ export default {
         };
 
         const handleDelete = (data) => {
-            request.post("/user/delete", { name: data.name }).then(res => {
+            request.post(baseurl + "/delete", data).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -140,7 +141,7 @@ export default {
         };
 
         const handleAdd = () => {
-            request.post("/user/add", { name: addForm.name, password: addForm.password }).then(res => {
+            request.post(baseurl + "/add", addForm).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -151,15 +152,18 @@ export default {
                 ElMessage.error(err);
             });
             addDialogFormVisible.value = false;
-            addForm.name = "";
-            addForm.password = "";
+            Object.keys(addForm).forEach(key => {
+                addForm[key] = "";
+            });
         };
 
         const handleSearch = () => {
             name.value = searchForm.name;
             load();
             searchDialogFormVisible.value = false;
-            searchForm.name = "";
+            Object.keys(searchForm).forEach(key => {
+                searchForm[key] = "";
+            });
         };
         return {
             tableData,
