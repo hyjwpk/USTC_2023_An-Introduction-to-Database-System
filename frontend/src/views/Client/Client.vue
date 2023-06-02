@@ -134,7 +134,6 @@ export default {
         const currentPage = ref(1);
         const pageSize = ref(2);
         const count = ref(0);
-        const name = ref("");
         const baseurl = "/client";
 
         const load = () => {
@@ -204,7 +203,6 @@ export default {
         };
 
         const handleSearch = () => {
-            name.value = searchForm.name;
             load();
             searchDialogFormVisible.value = false;
             Object.keys(searchForm).forEach(key => {
