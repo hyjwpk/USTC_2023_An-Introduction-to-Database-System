@@ -18,31 +18,31 @@ public class ClientService {
         this.clientMapper = bookMapper;
     }
 
-    public Map<String, List<Client>> getClientList() {
+    public Map<String, List<Client>> getList() {
         Map<String, List<Client>> map = new HashMap<>();
-        map.put("data", clientMapper.getClientList());
+        map.put("data", clientMapper.getList());
         return map;
     }
 
-    public Map<String, String> editClient(Client client) {
+    public Map<String, String> edit(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.editClient(client);
+        clientMapper.edit(client);
         map.put("code", "0");
         map.put("message", "修改成功");
         return map;
     }
 
-    public Map<String, String> addClient(Client client) {
+    public Map<String, String> add(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.addClient(client);
+        clientMapper.add(client);
         map.put("code", "0");
         map.put("message", "添加成功");
         return map;
     }
 
-    public Map<String, String> deleteClient(Client client) {
+    public Map<String, String> delete(Client client) {
         Map<String, String> map = new HashMap<>();
-        clientMapper.deleteClient(client);
+        clientMapper.delete(client);
         map.put("code", "0");
         map.put("message", "删除成功");
         return map;

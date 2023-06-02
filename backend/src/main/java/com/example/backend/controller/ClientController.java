@@ -19,24 +19,24 @@ public class ClientController {
     }
 
 
-    @GetMapping("/getClientList")
+    @GetMapping("/getList")
     public Map<String, List<Client>> getClientList() {
-        return clientService.getClientList();
+        return clientService.getList();
     }
 
-    @PostMapping("/editClient")
+    @PostMapping("/edit")
     public Map<String, String> editClient(@RequestBody Client client) {
-        return clientService.editClient(client);
+        return clientService.edit(client);
     }
 
-    @PostMapping("/addClient")
+    @PostMapping("/add")
     public Map<String, String> addClient(@RequestBody Client client) {
-        return clientService.addClient(client);
+        return clientService.add(client);
     }
 
-    @PostMapping("/deleteClient")
+    @PostMapping("/delete")
     public Map<String, String> deleteClient(@RequestBody Client client) {
-        return clientService.deleteClient(client);
+        return clientService.delete(client);
     }
 
     @GetMapping("/page")

@@ -150,7 +150,7 @@ export default {
         });
 
         const handleEdit = (data) => {
-            request.post("/client/editClient", { client_ID: data.client_ID, real_name: data.real_name, client_phone: data.client_phone, client_address: data.client_address, client_email: data.client_email }).then(res => {
+            request.post("/client/edit", { client_ID: data.client_ID, real_name: data.real_name, client_phone: data.client_phone, client_address: data.client_address, client_email: data.client_email }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                 } else {
@@ -163,7 +163,7 @@ export default {
         };
 
         const handleDelete = (data) => {
-            request.post("/client/deleteClient", { client_ID: data.client_ID }).then(res => {
+            request.post("/client/delete", { client_ID: data.client_ID }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -186,7 +186,7 @@ export default {
         };
 
         const handleAdd = () => {
-            request.post("/client/addClient", { client_ID: addForm.client_ID, real_name: addForm.real_name, client_phone: addForm.client_phone, client_address: addForm.client_address, client_email: addForm.client_email }).then(res => {
+            request.post("/client/add", { client_ID: addForm.client_ID, real_name: addForm.real_name, client_phone: addForm.client_phone, client_address: addForm.client_address, client_email: addForm.client_email }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();

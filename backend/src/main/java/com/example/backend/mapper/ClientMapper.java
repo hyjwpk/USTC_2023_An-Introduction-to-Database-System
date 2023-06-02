@@ -9,16 +9,16 @@ import java.util.List;
 public interface ClientMapper {
 
     @Select("select client_ID, real_name, client_phone, client_address, client_email from client")
-    List<Client> getClientList();
+    List<Client> getList();
 
     @Update("update client set real_name = #{real_name}, client_phone = #{client_phone}, client_address = #{client_address}, client_email = #{client_email} where client_ID = #{client_ID}")
-    void editClient(Client client);
+    void edit(Client client);
 
     @Insert("insert into client(client_ID, real_name, client_phone, client_address, client_email) values(#{client_ID}, #{real_name}, #{client_phone}, #{client_address}, #{client_email})")
-    void addClient(Client client);
+    void add(Client client);
 
     @Delete("delete from client where client_ID = #{client_ID}")
-    void deleteClient(Client client);
+    void delete(Client client);
 
     @Select("select count(*) from client where client_ID like concat('%', #{client_ID}, '%') and real_name like concat('%', #{real_name}, '%') and client_phone like concat('%', #{client_phone}, '%') and client_address like concat('%', #{client_address}, '%') and client_email like concat('%', #{client_email}, '%')")
     Integer count(String client_ID, String real_name, String client_phone, String client_address, String client_email);
