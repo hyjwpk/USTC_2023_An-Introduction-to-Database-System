@@ -1,6 +1,5 @@
 package com.example.backend.mapper;
 
-import com.example.backend.entity.Client;
 import com.example.backend.entity.Department;
 import org.apache.ibatis.annotations.*;
 
