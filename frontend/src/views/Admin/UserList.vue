@@ -104,7 +104,7 @@ export default {
         });
 
         const handleEdit = (data) => {
-            request.post("/user/editUser", { name: data.name, password: data.password }).then(res => {
+            request.post("/user/edit", { name: data.name, password: data.password }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                 } else {
@@ -117,7 +117,7 @@ export default {
         };
 
         const handleDelete = (data) => {
-            request.post("/user/deleteUser", { name: data.name }).then(res => {
+            request.post("/user/delete", { name: data.name }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();
@@ -140,7 +140,7 @@ export default {
         };
 
         const handleAdd = () => {
-            request.post("/user/addUser", { name: addForm.name, password: addForm.password }).then(res => {
+            request.post("/user/add", { name: addForm.name, password: addForm.password }).then(res => {
                 if (res.data.code == 0) {
                     ElMessage.success(res.data.message);
                     load();

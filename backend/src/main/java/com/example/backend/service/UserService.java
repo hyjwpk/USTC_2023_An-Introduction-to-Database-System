@@ -20,7 +20,7 @@ public class UserService {
 
     public Map<String, String> login(User user) {
         Map<String, String> map = new HashMap<>();
-        List<User> userList = userMapper.getUserList();
+        List<User> userList = userMapper.getList();
         for (User u : userList) {
             if (u.getName().equals(user.getName()) && u.getPassword().equals(user.getPassword())) {
                 map.put("code", "0");
@@ -33,31 +33,31 @@ public class UserService {
         return map;
     }
 
-    public Map<String, List<User>> getUserList() {
+    public Map<String, List<User>> getList() {
         Map<String, List<User>> map = new HashMap<>();
-        map.put("data", userMapper.getUserList());
+        map.put("data", userMapper.getList());
         return map;
     }
 
-    public Map<String, String> editUser(User user) {
+    public Map<String, String> edit(User user) {
         Map<String, String> map = new HashMap<>();
-        userMapper.editUser(user);
+        userMapper.edit(user);
         map.put("code", "0");
         map.put("message", "修改成功");
         return map;
     }
 
-    public Map<String, String> addUser(User user) {
+    public Map<String, String> add(User user) {
         Map<String, String> map = new HashMap<>();
-        userMapper.addUser(user);
+        userMapper.add(user);
         map.put("code", "0");
         map.put("message", "添加成功");
         return map;
     }
 
-    public Map<String, String> deleteUser(User user) {
+    public Map<String, String> delete(User user) {
         Map<String, String> map = new HashMap<>();
-        userMapper.deleteUser(user);
+        userMapper.delete(user);
         map.put("code", "0");
         map.put("message", "删除成功");
         return map;

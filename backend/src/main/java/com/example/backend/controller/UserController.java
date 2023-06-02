@@ -23,24 +23,24 @@ public class UserController {
         return userService.login(user);
     }
 
-    @GetMapping("/getUserList")
+    @GetMapping("/getList")
     public Map<String, List<User>> getUserList() {
-        return userService.getUserList();
+        return userService.getList();
     }
 
-    @PostMapping("/editUser")
+    @PostMapping("/edit")
     public Map<String, String> editUser(@RequestBody User user) {
-        return userService.editUser(user);
+        return userService.edit(user);
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/add")
     public Map<String, String> addUser(@RequestBody User user) {
-        return userService.addUser(user);
+        return userService.add(user);
     }
 
-    @PostMapping("/deleteUser")
+    @PostMapping("/delete")
     public Map<String, String> deleteUser(@RequestBody User user) {
-        return userService.deleteUser(user);
+        return userService.delete(user);
     }
 
     @GetMapping("/page")

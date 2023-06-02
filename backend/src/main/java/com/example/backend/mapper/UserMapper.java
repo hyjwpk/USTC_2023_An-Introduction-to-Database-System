@@ -9,16 +9,16 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("select name, password from user")
-    List<User> getUserList();
+    List<User> getList();
 
     @Update("update user set password = #{password} where name = #{name}")
-    void editUser(User user);
+    void edit(User user);
 
     @Insert("insert into user(name, password) values(#{name}, #{password})")
-    void addUser(User user);
+    void add(User user);
 
     @Delete("delete from user where name = #{name}")
-    void deleteUser(User user);
+    void delete(User user);
 
     @Select("select count(*) from user where name like concat('%', #{name}, '%')")
     Integer count(String name);
