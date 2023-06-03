@@ -5,6 +5,7 @@ import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.User;
 import com.example.backend.mapper.UserMapper;
+import com.example.backend.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserService {
         List<User> userList = userMapper.getList();
         for (User u : userList) {
             if (u.getName().equals(user.getName()) && u.getPassword().equals(user.getPassword())) {
-                return new Response(200, "登录成功", null);
+                return new Response(200, "登录成功", JwtTokenUtils.getToken(u));
             }
         }
         throw new MyException(ResponseEnum.FAIL);

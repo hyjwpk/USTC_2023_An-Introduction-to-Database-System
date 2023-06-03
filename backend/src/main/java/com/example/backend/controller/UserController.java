@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.common.Response;
 import com.example.backend.entity.User;
 import com.example.backend.service.UserService;
+import com.example.backend.util.PassToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PassToken
     @PostMapping("/login")
     public Response login(@RequestBody User user) {
         return userService.login(user);
