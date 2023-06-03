@@ -68,18 +68,19 @@ export default {
 
                 loginFormState.loading = true;
                 request.post("/user/login", { name: loginFormState.name, password: loginFormState.pwd }).then(res => {
-                    if (res.data.code == 0) {
+                    if (res.data.code == 200) {
                         let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
                         sessionStorage.setItem("jwt", JSON.stringify(params));
                         store.dispatch("setUser", params);
                         ElMessage.success(res.data.message);
                         router.replace("/");
                     } else {
-                        ElMessage.error(res.data.message);
+                        ElMessage.error(res.data.code + "：" + res.data.message);
                     }
                     loginFormState.loading = false;
                 }).catch(err => {
                     ElMessage.error(err);
+                    loginFormState.loading = false;
                 });
 
             });

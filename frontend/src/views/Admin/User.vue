@@ -88,13 +88,12 @@ export default {
         const currentPage = ref(1);
         const pageSize = ref(2);
         const count = ref(0);
-        const name = ref("");
         const baseurl = "/user";
 
         const load = () => {
-            request.get(baseurl + "/page", { params: { page: currentPage.value, size: pageSize.value, name: name.value } }).then(res => {
-                tableData.value = res.data.data;
-                count.value = res.data.count;
+            request({ url: baseurl + "/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
+                tableData.value = res.data.data.data;
+                count.value = res.data.data.count;
             }).catch(err => {
                 ElMessage.error(err);
             });
@@ -106,10 +105,11 @@ export default {
 
         const handleEdit = (data) => {
             request.post(baseurl + "/edit", data).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
@@ -119,11 +119,11 @@ export default {
 
         const handleDelete = (data) => {
             request.post(baseurl + "/delete", data).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
-                    load();
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
@@ -142,11 +142,11 @@ export default {
 
         const handleAdd = () => {
             request.post(baseurl + "/add", addForm).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
-                    load();
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
@@ -158,7 +158,6 @@ export default {
         };
 
         const handleSearch = () => {
-            name.value = searchForm.name;
             load();
             searchDialogFormVisible.value = false;
             Object.keys(searchForm).forEach(key => {

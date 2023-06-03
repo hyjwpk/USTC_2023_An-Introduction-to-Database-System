@@ -110,8 +110,8 @@ export default {
 
         const load = () => {
             request({ url: baseurl + "/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
-                tableData.value = res.data.data;
-                count.value = res.data.count;
+                tableData.value = res.data.data.data;
+                count.value = res.data.data.count;
             }).catch(err => {
                 ElMessage.error(err);
             });
@@ -123,10 +123,11 @@ export default {
 
         const handleEdit = (data) => {
             request.post(baseurl + "/edit", data).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
@@ -136,11 +137,11 @@ export default {
 
         const handleDelete = (data) => {
             request.post(baseurl + "/delete", data).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
-                    load();
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
@@ -159,11 +160,11 @@ export default {
 
         const handleAdd = () => {
             request.post(baseurl + "/add", addForm).then(res => {
-                if (res.data.code == 0) {
+                load();
+                if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
-                    load();
                 } else {
-                    ElMessage.error(res.data.message);
+                    ElMessage.error(res.data.code + "：" + res.data.message);
                 }
             }).catch(err => {
                 ElMessage.error(err);
