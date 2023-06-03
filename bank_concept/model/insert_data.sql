@@ -36,8 +36,6 @@ INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('100', '30230000000000000
 INSERT INTO `bank`.`credit_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('1', '123123200203150000', 'xx1支行', '123123', '3000', '2023-3-1', '10000');
 
 INSERT INTO `bank`.`credit_unique` (`bank_name`, `Account_ID`, `Client_ID`) VALUES ('xx1支行', '1', '123123200203150000');
-INSERT INTO `bank`.`credit_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('2', '123123200203150000', 'xx1支行', '123123', '3000', '2023-3-1', '10000');
-INSERT INTO `bank`.`credit_unique` (`bank_name`, `Account_ID`, `Client_ID`) VALUES ('xx1支行', '1', '123123200203150000');
 
 INSERT INTO `bank`.`saving_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `interest_rate`) VALUES ('2', '280800000000000000', 'xx1支行', '123456', '5000', '2023-2-1', '0.03');
 
