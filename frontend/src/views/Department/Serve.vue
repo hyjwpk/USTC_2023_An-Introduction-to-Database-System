@@ -2,7 +2,7 @@
     <el-card shadow="never" class="index">
         <template #header>
             <div class="card_header">
-                <b>员工</b>
+                <b>服务</b>
                 <div>
                     <el-button color="#056DE8" @click="addDialogFormVisible = true">增加</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>

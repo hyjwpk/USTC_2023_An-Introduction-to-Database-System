@@ -228,7 +228,6 @@ export default {
             salary: "",
             begin_date: "",
             level: "",
-
         });
         const currentPage = ref(1);
         const pageSize = ref(2);
