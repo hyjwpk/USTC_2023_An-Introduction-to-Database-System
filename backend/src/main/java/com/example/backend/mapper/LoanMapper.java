@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface LoanMapper {
 
-    @Select("select loan_id, client_id, bank_name, loan_total, remain_loan, loan_date, loan_rate from loan")
-    List<Loan> getList();
-
     @Update("update loan set client_id = #{client_id}, bank_name = #{bank_name}, loan_total = #{loan_total}, remain_loan = #{remain_loan}, loan_date = (case when #{loan_date} = '' then null when #{loan_date} = #{loan_date} then #{loan_date} end), loan_rate = #{loan_rate} where loan_id = #{loan_id}")
     void edit(Loan loan);
 

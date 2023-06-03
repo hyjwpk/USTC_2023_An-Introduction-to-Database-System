@@ -1,5 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.common.MyException;
+import com.example.backend.common.Response;
+import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.CreditAccount;
 import com.example.backend.mapper.CreditAccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,43 +21,43 @@ public class CreditAccountService {
         this.creditAccountMapper = creditAccountMapper;
     }
 
-    public Map<String, List<CreditAccount>> getList() {
-        Map<String, List<CreditAccount>> map = new HashMap<>();
-        map.put("data", creditAccountMapper.getList());
-        return map;
+    public Response edit(CreditAccount creditAccount) {
+        try {
+            creditAccountMapper.edit(creditAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> edit(CreditAccount creditAccount) {
-        Map<String, String> map = new HashMap<>();
-        creditAccountMapper.edit(creditAccount);
-        map.put("code", "0");
-        map.put("message", "修改成功");
-        return map;
+    public Response add(CreditAccount creditAccount) {
+        try {
+            creditAccountMapper.add(creditAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> add(CreditAccount creditAccount) {
-        Map<String, String> map = new HashMap<>();
-        creditAccountMapper.add(creditAccount);
-        map.put("code", "0");
-        map.put("message", "添加成功");
-        return map;
+    public Response delete(CreditAccount creditAccount) {
+        try {
+            creditAccountMapper.delete(creditAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> delete(CreditAccount creditAccount) {
-        Map<String, String> map = new HashMap<>();
-        creditAccountMapper.delete(creditAccount);
-        map.put("code", "0");
-        map.put("message", "删除成功");
-        return map;
-    }
-
-    public Map<String, Object> page(Integer page, Integer size, CreditAccount creditAccount) {
+    public Response page(Integer page, Integer size, CreditAccount creditAccount) {
         Integer start = (page - 1) * size;
         Integer count = creditAccountMapper.count(creditAccount);
-        List<CreditAccount> CreditAccountList = creditAccountMapper.page(start, size, creditAccount);
+        List<CreditAccount> creditAccountList = creditAccountMapper.page(start, size, creditAccount);
         Map<String, Object> map = new HashMap<>();
-        map.put("data", CreditAccountList);
+        map.put("data", creditAccountList);
         map.put("count", count);
-        return map;
+        return Response.success(map);
     }
 }

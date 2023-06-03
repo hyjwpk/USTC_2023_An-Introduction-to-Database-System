@@ -7,8 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface DepartmentMapper {
-    @Select("select depart_no, id, bank_name, depart_name, depart_type from department")
-    List<Department> getList();
 
     @Update("update department set id = #{id}, bank_name = #{bank_name}, depart_name = #{depart_name}, depart_type = #{depart_type} where depart_no = #{depart_no}")
     void edit(Department department);

@@ -1,5 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.common.MyException;
+import com.example.backend.common.Response;
+import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.Department;
 import com.example.backend.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,43 +21,43 @@ public class DepartmentService {
         this.departmentMapper = departmentMapper;
     }
 
-    public Map<String, List<Department>> getList() {
-        Map<String, List<Department>> map = new HashMap<>();
-        map.put("data", departmentMapper.getList());
-        return map;
+    public Response edit(Department department) {
+        try {
+            departmentMapper.edit(department);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> edit(Department department) {
-        Map<String, String> map = new HashMap<>();
-        departmentMapper.edit(department);
-        map.put("code", "0");
-        map.put("message", "修改成功");
-        return map;
+    public Response add(Department department) {
+        try {
+            departmentMapper.add(department);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> add(Department department) {
-        Map<String, String> map = new HashMap<>();
-        departmentMapper.add(department);
-        map.put("code", "0");
-        map.put("message", "添加成功");
-        return map;
+    public Response delete(Department department) {
+        try {
+            departmentMapper.delete(department);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> delete(Department department) {
-        Map<String, String> map = new HashMap<>();
-        departmentMapper.delete(department);
-        map.put("code", "0");
-        map.put("message", "删除成功");
-        return map;
-    }
-
-    public Map<String, Object> page(Integer page, Integer size, Department department) {
+    public Response page(Integer page, Integer size, Department department) {
         Integer start = (page - 1) * size;
         Integer count = departmentMapper.count(department);
-        List<Department> DepartmentList = departmentMapper.page(start, size, department);
+        List<Department> departmentList = departmentMapper.page(start, size, department);
         Map<String, Object> map = new HashMap<>();
-        map.put("data", DepartmentList);
+        map.put("data", departmentList);
         map.put("count", count);
-        return map;
+        return Response.success(map);
     }
 }

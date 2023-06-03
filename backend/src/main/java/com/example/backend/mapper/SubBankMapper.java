@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface SubBankMapper {
 
-    @Select("select bank_name, bank_location, asset from sub_bank")
-    List<SubBank> getList();
-
     @Update("update sub_bank set bank_location = #{bank_location}, asset = #{asset} where bank_name = #{bank_name}")
     void edit(SubBank subBank);
 

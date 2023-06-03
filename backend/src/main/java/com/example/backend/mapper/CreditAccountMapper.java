@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface CreditAccountMapper {
 
-    @Select("select account_id, client_id, bank_name, password, remaining, open_date, overdraft from credit_account")
-    List<CreditAccount> getList();
-
     @Update("update credit_account set client_id = #{client_id}, bank_name = #{bank_name}, password = #{password}, remaining = #{remaining}, open_date = (case when #{open_date} = '' then null when #{open_date} = #{open_date} then #{open_date} end), overdraft = #{overdraft} where account_id = #{account_id}")
     void edit(CreditAccount creditAccount);
 

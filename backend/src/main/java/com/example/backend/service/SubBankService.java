@@ -1,5 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.common.MyException;
+import com.example.backend.common.Response;
+import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.SubBank;
 import com.example.backend.mapper.SubBankMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,43 +21,43 @@ public class SubBankService {
         this.subBankMapper = subBankMapper;
     }
 
-    public Map<String, List<SubBank>> getList() {
-        Map<String, List<SubBank>> map = new HashMap<>();
-        map.put("data", subBankMapper.getList());
-        return map;
+    public Response edit(SubBank subBank) {
+        try {
+            subBankMapper.edit(subBank);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> edit(SubBank subBank) {
-        Map<String, String> map = new HashMap<>();
-        subBankMapper.edit(subBank);
-        map.put("code", "0");
-        map.put("message", "修改成功");
-        return map;
+    public Response add(SubBank subBank) {
+        try {
+            subBankMapper.add(subBank);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> add(SubBank subBank) {
-        Map<String, String> map = new HashMap<>();
-        subBankMapper.add(subBank);
-        map.put("code", "0");
-        map.put("message", "添加成功");
-        return map;
+    public Response delete(SubBank subBank) {
+        try {
+            subBankMapper.delete(subBank);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> delete(SubBank subBank) {
-        Map<String, String> map = new HashMap<>();
-        subBankMapper.delete(subBank);
-        map.put("code", "0");
-        map.put("message", "删除成功");
-        return map;
-    }
-
-    public Map<String, Object> page(Integer page, Integer size, SubBank subBank) {
+    public Response page(Integer page, Integer size, SubBank subBank) {
         Integer start = (page - 1) * size;
         Integer count = subBankMapper.count(subBank);
-        List<SubBank> SubBankList = subBankMapper.page(start, size, subBank);
+        List<SubBank> subBankList = subBankMapper.page(start, size, subBank);
         Map<String, Object> map = new HashMap<>();
-        map.put("data", SubBankList);
+        map.put("data", subBankList);
         map.put("count", count);
-        return map;
+        return Response.success(map);
     }
 }

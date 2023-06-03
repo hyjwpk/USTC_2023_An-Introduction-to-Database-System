@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface PayStatusMapper {
 
-    @Select("select pay_id, loan_id, pay_money, pay_date from pay_status")
-    List<PayStatus> getList();
-
     @Update("update pay_status set loan_id = #{loan_id}, pay_money = #{pay_money}, pay_date = (case when #{pay_date} = '' then null when #{pay_date} = #{pay_date} then #{pay_date} end) where pay_id = #{pay_id}")
     void edit(PayStatus payStatus);
 

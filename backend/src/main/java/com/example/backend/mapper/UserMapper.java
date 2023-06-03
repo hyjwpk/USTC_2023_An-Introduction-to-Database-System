@@ -21,8 +21,8 @@ public interface UserMapper {
     void delete(User user);
 
     @Select("select count(*) from user where name like concat('%', #{name}, '%')")
-    Integer count(String name);
+    Integer count(User user);
 
-    @Select("select name, password from user where name like concat('%', #{name}, '%') limit #{start}, #{size}")
-    List<User> page(Integer start, Integer size, String name);
+    @Select("select name, password from user where name like concat('%', #{user.name}, '%') limit #{start}, #{size}")
+    List<User> page(Integer start, Integer size, @Param("user") User user);
 }

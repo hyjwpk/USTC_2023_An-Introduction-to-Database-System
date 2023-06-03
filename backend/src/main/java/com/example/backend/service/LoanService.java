@@ -1,5 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.common.MyException;
+import com.example.backend.common.Response;
+import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.Loan;
 import com.example.backend.mapper.LoanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,43 +21,43 @@ public class LoanService {
         this.loanMapper = loanMapper;
     }
 
-    public Map<String, List<Loan>> getList() {
-        Map<String, List<Loan>> map = new HashMap<>();
-        map.put("data", loanMapper.getList());
-        return map;
+    public Response edit(Loan loan) {
+        try {
+            loanMapper.edit(loan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> edit(Loan loan) {
-        Map<String, String> map = new HashMap<>();
-        loanMapper.edit(loan);
-        map.put("code", "0");
-        map.put("message", "修改成功");
-        return map;
+    public Response add(Loan loan) {
+        try {
+            loanMapper.add(loan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> add(Loan loan) {
-        Map<String, String> map = new HashMap<>();
-        loanMapper.add(loan);
-        map.put("code", "0");
-        map.put("message", "添加成功");
-        return map;
+    public Response delete(Loan loan) {
+        try {
+            loanMapper.delete(loan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        return Response.success();
     }
 
-    public Map<String, String> delete(Loan loan) {
-        Map<String, String> map = new HashMap<>();
-        loanMapper.delete(loan);
-        map.put("code", "0");
-        map.put("message", "删除成功");
-        return map;
-    }
-
-    public Map<String, Object> page(Integer page, Integer size, Loan loan) {
+    public Response page(Integer page, Integer size, Loan loan) {
         Integer start = (page - 1) * size;
         Integer count = loanMapper.count(loan);
-        List<Loan> LoanList = loanMapper.page(start, size, loan);
+        List<Loan> loanList = loanMapper.page(start, size, loan);
         Map<String, Object> map = new HashMap<>();
-        map.put("data", LoanList);
+        map.put("data", loanList);
         map.put("count", count);
-        return map;
+        return Response.success(map);
     }
 }

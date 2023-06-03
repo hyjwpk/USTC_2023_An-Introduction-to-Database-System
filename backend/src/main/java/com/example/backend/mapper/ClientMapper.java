@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface ClientMapper {
 
-    @Select("select client_ID, real_name, client_phone, client_address, client_email from client")
-    List<Client> getList();
-
     @Update("update client set real_name = #{real_name}, client_phone = #{client_phone}, client_address = #{client_address}, client_email = #{client_email} where client_ID = #{client_ID}")
     void edit(Client client);
 

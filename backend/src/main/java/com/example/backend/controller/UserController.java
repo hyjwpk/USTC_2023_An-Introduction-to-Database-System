@@ -1,12 +1,10 @@
 package com.example.backend.controller;
 
+import com.example.backend.common.Response;
 import com.example.backend.entity.User;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -19,33 +17,28 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody User user) {
+    public Response login(@RequestBody User user) {
         return userService.login(user);
     }
 
-    @GetMapping("/getList")
-    public Map<String, List<User>> getUserList() {
-        return userService.getList();
-    }
-
     @PostMapping("/edit")
-    public Map<String, String> editUser(@RequestBody User user) {
+    public Response edit(@RequestBody User user) {
         return userService.edit(user);
     }
 
     @PostMapping("/add")
-    public Map<String, String> addUser(@RequestBody User user) {
+    public Response add(@RequestBody User user) {
         return userService.add(user);
     }
 
     @PostMapping("/delete")
-    public Map<String, String> deleteUser(@RequestBody User user) {
+    public Response delete(@RequestBody User user) {
         return userService.delete(user);
     }
 
-    @GetMapping("/page")
-    public Map<String, Object> page(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String name) {
-        return userService.page(page, size, name);
+    @PostMapping("/page")
+    public Response page(@RequestParam Integer page, @RequestParam Integer size, @RequestBody User user) {
+        return userService.page(page, size, user);
     }
 }
 

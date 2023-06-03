@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface ServeMapper {
 
-    @Select("select id, client_id from serve")
-    List<Serve> getList();
-
     @Insert("insert into serve (id, client_id) values (#{id}, #{client_id})")
     void add(Serve serve);
 

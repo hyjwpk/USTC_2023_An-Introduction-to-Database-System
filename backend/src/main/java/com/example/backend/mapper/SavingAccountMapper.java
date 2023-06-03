@@ -8,9 +8,6 @@ import java.util.List;
 @Mapper
 public interface SavingAccountMapper {
 
-    @Select("select account_id, client_id, bank_name, password, remaining, open_date, interest_rate from saving_account")
-    List<SavingAccount> getList();
-
     @Update("update saving_account set client_id = #{client_id}, bank_name = #{bank_name}, password = #{password}, remaining = #{remaining}, open_date = (case when #{open_date} = '' then null when #{open_date} = #{open_date} then #{open_date} end), interest_rate = #{interest_rate} where account_id = #{account_id}")
     void edit(SavingAccount savingAccount);
 

@@ -7,8 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface MemberMapper {
-    @Select("select id, depart_no, dep_depart_no, bank_name, name, sex, person_id, phone, address, salary, begin_date, level from member")
-    List<Member> getList();
 
     @Update("update member set depart_no = #{depart_no},dep_depart_no= #{dep_depart_no}, bank_name = #{bank_name}, name = #{name}, sex = #{sex}, person_id = #{person_id}, phone = #{phone}, address = #{address}, salary = #{salary}, begin_date = (case when #{begin_date} = '' then null when #{begin_date} = #{begin_date} then #{begin_date} end), level = #{level} where id = #{id}")
     void edit(Member member);
