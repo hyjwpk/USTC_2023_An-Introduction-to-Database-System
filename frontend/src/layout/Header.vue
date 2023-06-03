@@ -55,9 +55,8 @@ export default {
             } else {
                 proxy.$message.success("退出成功");
                 store.dispatch("clearUser");
-                router.replace("/login");
                 sessionStorage.clear();
-                localStorage.clear();
+                router.replace("/login");
             }
         };
 

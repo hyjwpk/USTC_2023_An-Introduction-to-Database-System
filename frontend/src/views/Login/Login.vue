@@ -69,7 +69,8 @@ export default {
                 loginFormState.loading = true;
                 request.post("/user/login", { name: loginFormState.name, password: loginFormState.pwd }).then(res => {
                     if (res.data.code == 200) {
-                        let params = { role: loginFormState.name === "admin" ? "admin" : "", username: loginFormState.name };
+                        let params = { role: loginFormState.name === "admin" ? "admin" : "user", username: loginFormState.name };
+                        sessionStorage.setItem("token", res.data.data);
                         sessionStorage.setItem("jwt", JSON.stringify(params));
                         store.dispatch("setUser", params);
                         ElMessage.success(res.data.message);

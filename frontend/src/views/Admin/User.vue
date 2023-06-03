@@ -92,8 +92,12 @@ export default {
 
         const load = () => {
             request({ url: baseurl + "/page", method: "post", params: { page: currentPage.value, size: pageSize.value }, data: searchForm }).then(res => {
-                tableData.value = res.data.data.data;
-                count.value = res.data.data.count;
+                if (res.data.code == 200) {
+                    tableData.value = res.data.data.data;
+                    count.value = res.data.data.count;
+                } else {
+                    ElMessage.error(res.data.code + "：" + res.data.message);
+                }
             }).catch(err => {
                 ElMessage.error(err);
             });
