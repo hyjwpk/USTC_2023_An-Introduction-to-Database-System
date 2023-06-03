@@ -9,6 +9,12 @@ const layoutMap = [
         component: () => import("@/views/Admin/User.vue")
     },
     {
+        path: "sub_bank",
+        name: "Sub_bank",
+        meta: { title: "支行管理", icon: "CreditCard", roles: ["admin"] },
+        component: () => import("@/views/Admin/Sub_bank.vue")
+    },
+    {
         path: "department",
         name: "Department",
         component: RouteView,
