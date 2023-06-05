@@ -96,12 +96,12 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <el-form-item label="员工号" label-width=100px>
+                <!-- <el-form-item label="员工号" label-width=100px>
                     <el-input v-model="addForm.id" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="管理部门号" label-width=100px>
                     <el-input v-model="addForm.depart_no" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="部门号" label-width=100px>
                     <el-input v-model="addForm.dep_depart_no" autocomplete="off" />
                 </el-form-item>
@@ -123,7 +123,7 @@
                 <el-form-item label="住址" label-width=100px>
                     <el-input v-model="addForm.address" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="工资" label-width=100px>
+                <!-- <el-form-item label="工资" label-width=100px>
                     <el-input v-model="addForm.salary" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="入职时间" label-width=100px>
@@ -131,7 +131,7 @@
                 </el-form-item>
                 <el-form-item label="等级" label-width=100px>
                     <el-input v-model="addForm.level" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
             <template #footer>
                 <span class="dialog-footer">

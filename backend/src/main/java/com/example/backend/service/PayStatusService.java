@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.common.MyException;
 import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
+import com.example.backend.entity.Loan;
 import com.example.backend.entity.PayStatus;
 import com.example.backend.mapper.PayStatusMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,35 @@ public class PayStatusService {
         return Response.success();
     }
 
+//    public Response add(PayStatus payStatus) {
+//        try {
+//            payStatusMapper.add(payStatus);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new MyException(ResponseEnum.FAIL);
+//        }
+//        return Response.success();
+//    }
     public Response add(PayStatus payStatus) {
+        Integer status;
+        Map<String,Object> map = new HashMap<>();
         try {
-            payStatusMapper.add(payStatus);
+            payStatusMapper.add(payStatus, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);
         }
-        return Response.success();
+        status = (Integer) map.get("status");
+        if (status == -1452){
+            return new Response(ResponseEnum.FAIL.getCode(),"贷款号输入错误", null);
+        }
+        if (status == 0){
+            return new Response(ResponseEnum.FAIL.getCode(),"该贷款已还清", null);
+        }
+        if (status > 0){
+            return new Response(ResponseEnum.FAIL.getCode(),"只需还款"+status+"元即可", null);
+        }
+        return new Response(ResponseEnum.SUCCESS.getCode(),"还贷成功", null);
     }
 
     public Response delete(PayStatus payStatus) {

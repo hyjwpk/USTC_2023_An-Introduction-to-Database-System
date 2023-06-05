@@ -32,13 +32,28 @@ public class MemberService {
     }
 
     public Response add(Member member) {
+        Integer status;
+        Map<String,Object> map = new HashMap<>();
         try {
-            memberMapper.add(member);
+             memberMapper.add(member, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);
         }
-        return Response.success();
+        status = (Integer) map.get("status");
+        if (status == 18){
+            return new Response(ResponseEnum.FAIL.getCode(),"身份证号错误", null);
+        }
+        if (status == 11){
+            return new Response(ResponseEnum.FAIL.getCode(),"手机号错误", null);
+        }
+        if (status == 2){
+            return new Response(ResponseEnum.FAIL.getCode(),"请正确填写性别：M代表男，W代表女", null);
+        }
+        if (status == 10){
+            return new Response(ResponseEnum.FAIL.getCode(),"请填写正确的银行与部门", null);
+        }
+        return new Response(ResponseEnum.SUCCESS.getCode(),status.toString(), null);
     }
 
     public Response delete(Member member) {

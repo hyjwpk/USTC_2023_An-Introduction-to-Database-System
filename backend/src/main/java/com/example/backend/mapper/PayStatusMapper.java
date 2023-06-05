@@ -1,9 +1,12 @@
 package com.example.backend.mapper;
 
+import com.example.backend.entity.Loan;
 import com.example.backend.entity.PayStatus;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PayStatusMapper {
@@ -11,8 +14,10 @@ public interface PayStatusMapper {
     @Update("update pay_status set loan_id = #{loan_id}, pay_money = #{pay_money}, pay_date = (case when #{pay_date} = '' then null when #{pay_date} = #{pay_date} then #{pay_date} end) where pay_id = #{pay_id}")
     void edit(PayStatus payStatus);
 
-    @Insert("insert into pay_status(pay_id, loan_id, pay_money, pay_date) values(#{pay_id}, #{loan_id}, #{pay_money}, (case when #{pay_date} = '' then null when #{pay_date} = #{pay_date} then #{pay_date} end))")
-    void add(PayStatus payStatus);
+
+    @Options(statementType = StatementType.CALLABLE)
+    @Select("Call return_loan (#{PayStatus.loan_id}, #{PayStatus.pay_money}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer add(@Param("PayStatus") PayStatus payStatus, Map<String,Object> map);
 
     @Delete("delete from pay_status where pay_id = #{pay_id}")
     void delete(PayStatus payStatus);

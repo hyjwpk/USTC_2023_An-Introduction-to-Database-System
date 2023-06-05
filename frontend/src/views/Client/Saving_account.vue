@@ -6,6 +6,8 @@
                 <div>
                     <el-button color="#056DE8" @click="addDialogFormVisible = true">增加</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
+                    <el-button color="#87CEEB" @click="savingDialogFormVisible = true" >存钱</el-button>
+                    <el-button color="#87CEEB" @click="withdrawDialogFormVisible = true" >取钱</el-button>
                 </div>
             </div>
         </template>
@@ -13,45 +15,21 @@
 
         <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="account_id" label="账户号"></el-table-column>
-            <el-table-column label="客户身份证号" width="200">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.client_id"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.client_id }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="支行名称">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.bank_name"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.bank_name }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="client_id" label="客户身份证号" width="200"></el-table-column>
+            <el-table-column prop="bank_name" label="支行名称"></el-table-column>
             <el-table-column label="密码">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.password"></el-input>
                     <p v-show="!scope.row.showmode">{{ scope.row.password }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="余额">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.remaining"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.remaining }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="开户日期">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.open_date"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.open_date }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="利率">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.interest_rate"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.interest_rate }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="remaining" label="余额"></el-table-column>
+            <el-table-column prop="open_date" label="开户日期"></el-table-column>
+            <el-table-column prop="interest_rate" label="利率"></el-table-column>
             <el-table-column fixed="right" label="操作" width="200">
                 <template #default="scope">
-                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
+                    
+                    <el-button @click="scope.row.showmode = true" type='primary' size="small">修改密码</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
@@ -66,9 +44,6 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <el-form-item label="账户号" label-width=100px>
-                    <el-input v-model="addForm.account_id" autocomplete="off" />
-                </el-form-item>
                 <el-form-item label="客户身份证号" label-width=100px>
                     <el-input v-model="addForm.client_id" autocomplete="off" />
                 </el-form-item>
@@ -80,9 +55,6 @@
                 </el-form-item>
                 <el-form-item label="余额" label-width=100px>
                     <el-input v-model="addForm.remaining" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="开户日期" label-width=100px>
-                    <el-input v-model="addForm.open_date" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="利率" label-width=100px>
                     <el-input v-model="addForm.interest_rate" autocomplete="off" />
@@ -127,6 +99,41 @@
                 </span>
             </template>
         </el-dialog>
+
+        <el-dialog v-model="savingDialogFormVisible" title="存钱">
+            <el-form :model="interactForm">
+                <el-form-item label="账户号" label-width=100px>
+                    <el-input v-model="interactForm.account_id" autocomplete="off" />
+                </el-form-item>
+                <el-form-item label="存入金额" label-width=100px>
+                    <el-input v-model="interactForm.money" autocomplete="off" />
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="savingDialogFormVisible = false">取消</el-button>
+                    <el-button type="primary" @click="handleSaving()">确定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+
+        <el-dialog v-model="withdrawDialogFormVisible" title="取钱">
+            <el-form :model="interactForm">
+                <el-form-item label="账户号" label-width=100px>
+                    <el-input v-model="interactForm.account_id" autocomplete="off" />
+                </el-form-item>
+                <el-form-item label="取出金额" label-width=100px>
+                    <el-input v-model="interactForm.money" autocomplete="off" />
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="withdrawDialogFormVisible = false">取消</el-button>
+                    <el-button type="primary" @click="handleWithdraw()">确定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+        
     </el-card>
 </template>
 
@@ -141,6 +148,8 @@ export default {
         const tableData = ref([])
         const addDialogFormVisible = ref(false);
         const searchDialogFormVisible = ref(false);
+        const savingDialogFormVisible = ref(false);
+        const withdrawDialogFormVisible = ref(false);
         const addForm = reactive({
             account_id: "",
             client_id: "",
@@ -158,6 +167,10 @@ export default {
             remaining: "",
             open_date: "",
             interest_rate: "",
+        });
+        const interactForm = reactive({
+            account_id: "",
+            money: "",
         });
         const currentPage = ref(1);
         const pageSize = ref(2);
@@ -242,12 +255,50 @@ export default {
                 searchForm[key] = "";
             });
         };
+
+        const handleSaving = () => {
+            request.post(baseurl + "/saving", interactForm).then(res => {
+                load();
+                if (res.data.code == 200) {
+                    ElMessage.success(res.data.message);
+                } else {
+                    ElMessage.error(res.data.code + "：" + res.data.message);
+                }
+            }).catch(err => {
+                ElMessage.error(err);
+            });
+            savingDialogFormVisible.value = false;
+            Object.keys(interactForm).forEach(key => {
+                interactForm[key] = "";
+            });
+        };
+
+        const handleWithdraw = () => {
+            request.post(baseurl + "/withdraw", interactForm).then(res => {
+                load();
+                if (res.data.code == 200) {
+                    ElMessage.success(res.data.message);
+                } else {
+                    ElMessage.error(res.data.code + "：" + res.data.message);
+                }
+            }).catch(err => {
+                ElMessage.error(err);
+            });
+            withdrawDialogFormVisible.value = false;
+            Object.keys(interactForm).forEach(key => {
+                interactForm[key] = "";
+            });
+        };
+
         return {
             tableData,
             addDialogFormVisible,
             searchDialogFormVisible,
+            savingDialogFormVisible,
+            withdrawDialogFormVisible,
             addForm,
             searchForm,
+            interactForm,
             currentPage,
             pageSize,
             count,
@@ -257,6 +308,8 @@ export default {
             handleCurrentChange,
             handleAdd,
             handleSearch,
+            handleSaving,
+            handleWithdraw,
         };
     }
 }

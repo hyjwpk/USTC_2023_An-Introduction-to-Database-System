@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.common.Response;
 import com.example.backend.entity.SavingAccount;
+import com.example.backend.entity.SavingInteract;
 import com.example.backend.service.SavingAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,16 @@ public class SavingAccountController {
     @PostMapping("/add")
     public Response add(@RequestBody SavingAccount savingAccount) {
         return savingAccountService.add(savingAccount);
+    }
+
+    @PostMapping("/saving")
+    public Response saving(@RequestBody SavingInteract savingInteract) {
+        return savingAccountService.saving(savingInteract);
+    }
+
+    @PostMapping("/withdraw")
+    public Response withdraw(@RequestBody SavingInteract savingInteract) {
+        return savingAccountService.withdraw(savingInteract);
     }
 
     @PostMapping("/delete")

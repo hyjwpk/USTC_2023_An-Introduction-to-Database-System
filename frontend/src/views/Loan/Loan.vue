@@ -66,9 +66,9 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <el-form-item label="贷款ID" label-width=100px>
+                <!-- <el-form-item label="贷款ID" label-width=100px>
                     <el-input v-model="addForm.loan_id" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="客户身份证号" label-width=100px>
                     <el-input v-model="addForm.client_id" autocomplete="off" />
                 </el-form-item>
@@ -78,12 +78,12 @@
                 <el-form-item label="本金" label-width=100px>
                     <el-input v-model="addForm.loan_total" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="剩余贷款" label-width=100px>
+                <!-- <el-form-item label="剩余贷款" label-width=100px>
                     <el-input v-model="addForm.remain_loan" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="借贷时间" label-width=100px>
+                </el-form-item> -->
+                <!-- <el-form-item label="借贷时间" label-width=100px>
                     <el-input v-model="addForm.loan_date" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="利率" label-width=100px>
                     <el-input v-model="addForm.loan_rate" autocomplete="off" />
                 </el-form-item>

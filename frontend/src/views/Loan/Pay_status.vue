@@ -48,18 +48,18 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <el-form-item label="支付标识" label-width=100px>
+                <!-- <el-form-item label="支付标识" label-width=100px>
                     <el-input v-model="addForm.pay_id" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="贷款ID" label-width=100px>
                     <el-input v-model="addForm.loan_id" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="支付金额" label-width=100px>
                     <el-input v-model="addForm.pay_money" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="支付日期" label-width=100px>
+                <!-- <el-form-item label="支付日期" label-width=100px>
                     <el-input v-model="addForm.pay_date" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
             <template #footer>
                 <span class="dialog-footer">

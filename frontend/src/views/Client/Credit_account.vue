@@ -66,9 +66,9 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <el-form-item label="账户号" label-width=100px>
+                <!-- <el-form-item label="账户号" label-width=100px>
                     <el-input v-model="addForm.account_id" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="客户身份证号" label-width=100px>
                     <el-input v-model="addForm.client_id" autocomplete="off" />
                 </el-form-item>
@@ -78,12 +78,12 @@
                 <el-form-item label="密码" label-width=100px>
                     <el-input v-model="addForm.password" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="余额" label-width=100px>
+                <!-- <el-form-item label="余额" label-width=100px>
                     <el-input v-model="addForm.remaining" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="开户日期" label-width=100px>
+                </el-form-item> -->
+                <!-- <el-form-item label="开户日期" label-width=100px>
                     <el-input v-model="addForm.open_date" autocomplete="off" />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="额度" label-width=100px>
                     <el-input v-model="addForm.overdraft" autocomplete="off" />
                 </el-form-item>
