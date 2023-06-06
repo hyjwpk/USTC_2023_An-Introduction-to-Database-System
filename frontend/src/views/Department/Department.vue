@@ -13,18 +13,13 @@
 
         <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="depart_no" label="部门号"></el-table-column>
-            <el-table-column label="员工号">
+            <el-table-column prop="id" label="管理者员工号">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.id"></el-input>
                     <p v-show="!scope.row.showmode">{{ scope.row.id }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="支行名称">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.bank_name"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.bank_name }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="bank_name" label="支行名称"></el-table-column>
             <el-table-column label="部门名称">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.depart_name"></el-input>
@@ -57,7 +52,7 @@
                 <el-form-item label="部门号" label-width=100px>
                     <el-input v-model="addForm.depart_no" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="员工号" label-width=100px>
+                <el-form-item label="管理者员工号" label-width=100px>
                     <el-input v-model="addForm.id" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="支行名称" label-width=100px>

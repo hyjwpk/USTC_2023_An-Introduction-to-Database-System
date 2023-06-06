@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.common.Response;
 import com.example.backend.entity.SubBank;
+import com.example.backend.entity.RenameBank;
 import com.example.backend.service.SubBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class SubBankController {
     @PostMapping("/add")
     public Response add(@RequestBody SubBank subBank) {
         return subBankService.add(subBank);
+    }
+
+    @PostMapping("/rename")
+    public Response rename(@RequestBody RenameBank renameBank) {
+        return subBankService.rename(renameBank);
     }
 
     @PostMapping("/delete")

@@ -71,8 +71,8 @@ public class SavingAccountService {
         if (status == 2){
             return new Response(ResponseEnum.FAIL.getCode(),"本储蓄卡不存在", null);
         }
-        if (status == 3){
-            return new Response(ResponseEnum.FAIL.getCode(),"余额不足", null);
+        if (status == 3) {
+            return new Response(ResponseEnum.FAIL.getCode(), "余额不足", null);
         }
         return new Response(ResponseEnum.SUCCESS.getCode(),"交互成功", null);
     }
@@ -92,6 +92,9 @@ public class SavingAccountService {
         }
         if (status == 3){
             return new Response(ResponseEnum.FAIL.getCode(),"余额不足", null);
+        }
+        if (status == 4){
+            return new Response(ResponseEnum.FAIL.getCode(),"暂时无法取出这么多钱", null);
         }
         return new Response(ResponseEnum.SUCCESS.getCode(),"交互成功", null);
     }

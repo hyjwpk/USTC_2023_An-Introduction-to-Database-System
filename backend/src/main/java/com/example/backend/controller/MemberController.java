@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.common.Response;
+import com.example.backend.entity.EditMember;
 import com.example.backend.entity.Member;
 import com.example.backend.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class MemberController {
     }
 
     @PostMapping("/edit")
-    public Response edit(@RequestBody Member member) {
-        return memberService.edit(member);
+    public Response edit(@RequestBody EditMember editmember) {
+        return memberService.edit(editmember);
     }
 
     @PostMapping("/add")

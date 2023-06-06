@@ -5,6 +5,7 @@ import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.CreditAccount;
 import com.example.backend.entity.PayStatus;
+import com.example.backend.entity.SavingInteract;
 import com.example.backend.mapper.CreditAccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,15 +33,6 @@ public class CreditAccountService {
         return Response.success();
     }
 
-//    public Response add(CreditAccount creditAccount) {
-//        try {
-//            creditAccountMapper.add(creditAccount);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new MyException(ResponseEnum.FAIL);
-//        }
-//        return Response.success();
-//    }
     public Response add(CreditAccount creditAccount) {
         Integer status;
         Map<String,Object> map = new HashMap<>();
@@ -66,15 +58,50 @@ public class CreditAccountService {
         return new Response(ResponseEnum.SUCCESS.getCode(),"申请信用卡成功", null);
     }
 
-//    public Response delete(CreditAccount creditAccount) {
-//        try {
-//            creditAccountMapper.delete(creditAccount);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new MyException(ResponseEnum.FAIL);
-//        }
-//        return Response.success();
-//    }
+    public Response return_c(SavingInteract savingInteract) {
+        Integer status;
+        Map<String,Object> map = new HashMap<>();
+        try {
+            creditAccountMapper.return_c(savingInteract, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        status = (Integer) map.get("status");
+        if (status == -2){
+            return new Response(ResponseEnum.FAIL.getCode(),"本储蓄卡不存在", null);
+        }
+        if (status == 0){
+            return new Response(ResponseEnum.FAIL.getCode(),"该信用卡已还清", null);
+        }
+        if (status > 0){
+            return new Response(ResponseEnum.FAIL.getCode(),"该信用卡只需还"+status+"元即可", null);
+        }
+        return new Response(ResponseEnum.SUCCESS.getCode(),"交互成功", null);
+    }
+
+    public Response lend(SavingInteract savingInteract) {
+        Integer status;
+        Map<String,Object> map = new HashMap<>();
+        try {
+            creditAccountMapper.lend(savingInteract, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        status = (Integer) map.get("status");
+        if (status == -2){
+            return new Response(ResponseEnum.FAIL.getCode(),"本储蓄卡不存在", null);
+        }
+        if (status == -3){
+            return new Response(ResponseEnum.FAIL.getCode(),"超过本卡额度", null);
+        }
+        if (status == -4){
+            return new Response(ResponseEnum.FAIL.getCode(),"暂时无法使用这么多钱", null);
+        }
+        return new Response(ResponseEnum.SUCCESS.getCode(),"交互成功", null);
+    }
+
     public Response delete(CreditAccount creditAccount) {
         Integer status;
         Map<String,Object> map = new HashMap<>();

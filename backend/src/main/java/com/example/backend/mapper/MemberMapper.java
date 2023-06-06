@@ -1,6 +1,7 @@
 package com.example.backend.mapper;
 
 import com.example.backend.entity.Member;
+import com.example.backend.entity.EditMember;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 
@@ -10,11 +11,12 @@ import java.util.Map;
 @Mapper
 public interface MemberMapper {
 
-    @Update("update member set depart_no = #{depart_no},dep_depart_no= #{dep_depart_no}, bank_name = #{bank_name}, name = #{name}, sex = #{sex}, person_id = #{person_id}, phone = #{phone}, address = #{address}, salary = #{salary}, begin_date = (case when #{begin_date} = '' then null when #{begin_date} = #{begin_date} then #{begin_date} end), level = #{level} where id = #{id}")
-    void edit(Member member);
+//    @Update("update member set depart_no = #{depart_no},dep_depart_no= #{dep_depart_no}, bank_name = #{bank_name}, name = #{name}, sex = #{sex}, person_id = #{person_id}, phone = #{phone}, address = #{address}, salary = #{salary}, begin_date = (case when #{begin_date} = '' then null when #{begin_date} = #{begin_date} then #{begin_date} end), level = #{level} where id = #{id}")
+//    void edit(Member member);
+    @Options(statementType = StatementType.CALLABLE)
+    @Select("Call edit_member ( #{EditMember.id},#{EditMember.depart_no},#{EditMember.depart_no_new},#{EditMember.dep_depart_no},#{EditMember.dep_depart_no_new},#{EditMember.bank_name},#{EditMember.bank_name_new},#{EditMember.name_new},#{EditMember.phone_new},#{EditMember.address_new},#{EditMember.salary},#{EditMember.salary_new},#{EditMember.level},#{EditMember.level_new}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer edit(@Param("EditMember")EditMember editmember, Map<String,Object> map);
 
-//    @Insert("insert into member(id,depart_no,dep_depart_no,bank_name,name,sex,person_id,phone,address,salary,begin_date,level) values(#{id},#{depart_no},#{dep_depart_no},#{bank_name},#{name},#{sex},#{person_id},#{phone},#{address},#{salary}, (case when #{begin_date} = '' then null when #{begin_date} = #{begin_date} then #{begin_date} end),#{level})")
-//    void add(Member member);
 
     @Options(statementType = StatementType.CALLABLE)
     @Select("Call Employ ( #{member.dep_depart_no},#{member.bank_name},#{member.name},#{member.sex},#{member.person_id},#{member.phone},#{member.address}, #{map.status, mode=OUT, jdbcType=INTEGER});")

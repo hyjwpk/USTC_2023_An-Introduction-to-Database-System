@@ -29,6 +29,7 @@
                 <template #default="scope">
                     <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
+                    <el-button @click="handleRename(scope.row)" type='info' size="small">改名</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
             </el-table-column>
@@ -79,6 +80,21 @@
                 </span>
             </template>
         </el-dialog>
+
+        <el-dialog v-model="renameFormVisible" title="支行改名">
+            <el-form :model="nameForm">
+                <el-form-item label="新名称" label-width=100px>
+                    <el-input v-model="nameForm.new_name" autocomplete="off" />
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="renameFormVisible = false">取消</el-button>
+                    <el-button type="primary" @click="Rename()">确定</el-button>
+                </span>
+            </template>
+        </el-dialog>
+
     </el-card>
 </template>
 
@@ -87,12 +103,16 @@ import { ref, onMounted } from "vue";
 import request from "@/utils/axios";
 import { reactive } from "vue";
 import { ElMessage } from "element-plus";
+import { Flag } from "@element-plus/icons-vue";
 
 export default {
     setup() {
         const tableData = ref([])
         const addDialogFormVisible = ref(false);
         const searchDialogFormVisible = ref(false);
+        const renameFormVisible = ref(false);
+        var check_flag = false;
+        var is_running = false;
         const addForm = reactive({
             bank_name: "",
             bank_location: "",
@@ -102,6 +122,13 @@ export default {
             bank_name: "",
             bank_location: "",
             asset: "",
+        });
+        const nameForm = reactive({
+            new_name: "",
+        });
+        const namepairForm = reactive({
+            old_name: "",
+            new_name: "",
         });
         const currentPage = ref(1);
         const pageSize = ref(2);
@@ -152,6 +179,35 @@ export default {
             });
         };
 
+        const handleRename = (data) => {
+            namepairForm.old_name = data.bank_name;
+            renameFormVisible.value = true;
+            if (check_flag == true){
+                namepairForm.old_name = data.bank_name;
+                namepairForm.new_name = nameForm.new_name;
+            }
+        };
+        const Rename = () => {
+            namepairForm.new_name = nameForm.new_name;
+            request.post(baseurl + "/rename", namepairForm).then(res => {
+                load();
+                if (res.data.code == 200) {
+                    ElMessage.success(res.data.message);
+                } else {
+                    ElMessage.error(res.data.code + "：" + res.data.message);
+                }
+            }).catch(err => {
+                ElMessage.error(err);
+            });
+            renameFormVisible.value = false;
+            Object.keys(nameForm).forEach(key => {
+                nameForm[key] = "";
+            });
+            Object.keys(namepairForm).forEach(key => {
+                namepairForm[key] = "";
+            });
+        }
+
         const handleSizeChange = (number) => {
             pageSize.value = number;
             load();
@@ -187,11 +243,15 @@ export default {
             });
         };
         return {
+            check_flag,
             tableData,
             addDialogFormVisible,
             searchDialogFormVisible,
+            renameFormVisible,
             addForm,
             searchForm,
+            nameForm,
+            namepairForm,
             currentPage,
             pageSize,
             count,
@@ -201,6 +261,8 @@ export default {
             handleCurrentChange,
             handleAdd,
             handleSearch,
+            handleRename,
+            Rename,
         };
     }
 }

@@ -4,7 +4,7 @@
             <div class="card_header">
                 <b>贷款</b>
                 <div>
-                    <el-button color="#056DE8" @click="addDialogFormVisible = true">增加</el-button>
+                    <el-button color="#6495ED" @click="addDialogFormVisible = true">借贷</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
                 </div>
             </div>
@@ -49,13 +49,6 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.loan_rate }}</p>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="200">
-                <template #default="scope">
-                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
-                    <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
-                    <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
-                </template>
-            </el-table-column>
         </el-table>
 
         <div style="padding: 10px 0">
@@ -64,11 +57,8 @@
                 @current-change="handleCurrentChange" />
         </div>
 
-        <el-dialog v-model="addDialogFormVisible" title="增加">
+        <el-dialog v-model="addDialogFormVisible" title="借贷">
             <el-form :model="addForm">
-                <!-- <el-form-item label="贷款ID" label-width=100px>
-                    <el-input v-model="addForm.loan_id" autocomplete="off" />
-                </el-form-item> -->
                 <el-form-item label="客户身份证号" label-width=100px>
                     <el-input v-model="addForm.client_id" autocomplete="off" />
                 </el-form-item>
@@ -78,12 +68,6 @@
                 <el-form-item label="本金" label-width=100px>
                     <el-input v-model="addForm.loan_total" autocomplete="off" />
                 </el-form-item>
-                <!-- <el-form-item label="剩余贷款" label-width=100px>
-                    <el-input v-model="addForm.remain_loan" autocomplete="off" />
-                </el-form-item> -->
-                <!-- <el-form-item label="借贷时间" label-width=100px>
-                    <el-input v-model="addForm.loan_date" autocomplete="off" />
-                </el-form-item> -->
                 <el-form-item label="利率" label-width=100px>
                     <el-input v-model="addForm.loan_rate" autocomplete="off" />
                 </el-form-item>

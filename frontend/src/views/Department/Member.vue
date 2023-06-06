@@ -19,13 +19,13 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.depart_no }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="部门号" >
+            <el-table-column label="所属部门号" width="100" >
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.dep_depart_no"></el-input>
                     <p v-show="!scope.row.showmode">{{ scope.row.dep_depart_no }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="支行名称">
+            <el-table-column label="所属支行">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.bank_name"></el-input>
                     <p v-show="!scope.row.showmode">{{ scope.row.bank_name }}</p>
@@ -37,18 +37,8 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.name }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="员工性别">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.sex"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.sex }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="身份证号" width="200">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.person_id"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.person_id }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="sex" label="员工性别"></el-table-column>
+            <el-table-column prop="person_id" label="身份证号" width="200"></el-table-column>
             <el-table-column label="手机号" width="200">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.phone"></el-input>
@@ -67,12 +57,7 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.salary }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="入职时间" width="200">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.begin_date"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.begin_date }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="begin_date" label="入职时间" width="200"></el-table-column>
             <el-table-column label="等级">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.level"></el-input>
@@ -81,7 +66,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="200">
                 <template #default="scope">
-                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
+                    <el-button @click="pre_edit(scope.row)" type='primary' size="small">编辑</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
@@ -96,12 +81,6 @@
 
         <el-dialog v-model="addDialogFormVisible" title="增加">
             <el-form :model="addForm">
-                <!-- <el-form-item label="员工号" label-width=100px>
-                    <el-input v-model="addForm.id" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="管理部门号" label-width=100px>
-                    <el-input v-model="addForm.depart_no" autocomplete="off" />
-                </el-form-item> -->
                 <el-form-item label="部门号" label-width=100px>
                     <el-input v-model="addForm.dep_depart_no" autocomplete="off" />
                 </el-form-item>
@@ -123,15 +102,6 @@
                 <el-form-item label="住址" label-width=100px>
                     <el-input v-model="addForm.address" autocomplete="off" />
                 </el-form-item>
-                <!-- <el-form-item label="工资" label-width=100px>
-                    <el-input v-model="addForm.salary" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="入职时间" label-width=100px>
-                    <el-input v-model="addForm.begin_date" autocomplete="off" />
-                </el-form-item>
-                <el-form-item label="等级" label-width=100px>
-                    <el-input v-model="addForm.level" autocomplete="off" />
-                </el-form-item> -->
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
@@ -229,6 +199,22 @@ export default {
             begin_date: "",
             level: "",
         });
+        const editForm = reactive({
+            id: "",
+            depart_no: "",
+            depart_no_new: "",
+            dep_depart_no: "",
+            dep_depart_no_new: "",
+            bank_name: "",
+            bank_name_new: "",
+            name_new: "",
+            phone_new: "",
+            address_new: "",
+            salary: "",
+            salary_new: "",
+            level: "",
+            level_new: "",
+        });
         const currentPage = ref(1);
         const pageSize = ref(2);
         const count = ref(0);
@@ -251,8 +237,31 @@ export default {
             load();
         });
 
+        const pre_edit = (data) => {
+            
+            // Object.keys(EditForm).forEach(key => {
+            //     editForm[key] = "";
+            // });
+            editForm.id = data.id;
+            editForm.bank_name = data.bank_name;
+            editForm.dep_depart_no = data.dep_depart_no;
+            editForm.depart_no = data.depart_no;
+            editForm.level = data.level;
+            editForm.salary = data.salary;
+            data.showmode = true;
+        }
+
         const handleEdit = (data) => {
-            request.post(baseurl + "/edit", data).then(res => {
+            editForm.bank_name_new = data.bank_name;
+            editForm.dep_depart_no_new = data.dep_depart_no;
+            editForm.depart_no_new = data.depart_no;
+            editForm.level_new = data.level;
+            editForm.salary_new = data.salary;
+            editForm.address_new = data.address;
+            editForm.phone_new = data.phone;
+            editForm.name_new = data.name;
+
+            request.post(baseurl + "/edit", editForm).then(res => {
                 load();
                 if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
@@ -263,6 +272,9 @@ export default {
                 ElMessage.error(err);
             });
             data.showmode = false;
+            Object.keys(EditForm).forEach(key => {
+                editForm[key] = "";
+            });
         };
 
         const handleDelete = (data) => {
@@ -276,6 +288,7 @@ export default {
             }).catch(err => {
                 ElMessage.error(err);
             });
+            
         };
 
         const handleSizeChange = (number) => {
@@ -318,9 +331,11 @@ export default {
             searchDialogFormVisible,
             addForm,
             searchForm,
+            editForm,
             currentPage,
             pageSize,
             count,
+            pre_edit,
             handleEdit,
             handleDelete,
             handleSizeChange,

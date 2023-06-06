@@ -4,7 +4,7 @@
             <div class="card_header">
                 <b>支付情况</b>
                 <div>
-                    <el-button color="#056DE8" @click="addDialogFormVisible = true">增加</el-button>
+                    <el-button color="#6495ED" @click="addDialogFormVisible = true">还贷</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
                 </div>
             </div>
@@ -31,13 +31,6 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.pay_date }}</p>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="200">
-                <template #default="scope">
-                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
-                    <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
-                    <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
-                </template>
-            </el-table-column>
         </el-table>
 
         <div style="padding: 10px 0">
@@ -46,20 +39,14 @@
                 @current-change="handleCurrentChange" />
         </div>
 
-        <el-dialog v-model="addDialogFormVisible" title="增加">
+        <el-dialog v-model="addDialogFormVisible" title="还贷">
             <el-form :model="addForm">
-                <!-- <el-form-item label="支付标识" label-width=100px>
-                    <el-input v-model="addForm.pay_id" autocomplete="off" />
-                </el-form-item> -->
                 <el-form-item label="贷款ID" label-width=100px>
                     <el-input v-model="addForm.loan_id" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="支付金额" label-width=100px>
                     <el-input v-model="addForm.pay_money" autocomplete="off" />
                 </el-form-item>
-                <!-- <el-form-item label="支付日期" label-width=100px>
-                    <el-input v-model="addForm.pay_date" autocomplete="off" />
-                </el-form-item> -->
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
