@@ -50,6 +50,9 @@ public class MemberService {
         if (status == 4){
             return new Response(ResponseEnum.FAIL.getCode(),"该支行不存在此部门", null);
         }
+        if (status == 5){
+            return new Response(ResponseEnum.FAIL.getCode(),"管理部门与所所属部门不一致", null);
+        }
         return new Response(ResponseEnum.SUCCESS.getCode(),"修改成功", null);
     }
 

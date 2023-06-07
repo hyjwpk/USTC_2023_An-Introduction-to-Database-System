@@ -13,12 +13,7 @@
 
         <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="depart_no" label="部门号"></el-table-column>
-            <el-table-column prop="id" label="管理者员工号">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.id"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.id }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="id" label="管理者员工号"></el-table-column>
             <el-table-column prop="bank_name" label="支行名称"></el-table-column>
             <el-table-column label="部门名称">
                 <template #default="scope">
