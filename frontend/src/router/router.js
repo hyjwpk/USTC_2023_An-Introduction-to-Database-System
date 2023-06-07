@@ -32,12 +32,6 @@ const layoutMap = [
                 meta: { title: "员工" },
                 component: () => import("@/views/Department/Member.vue")
             },
-            {
-                path: "serve",
-                name: "Serve",
-                meta: { title: "服务" },
-                component: () => import("@/views/Department/Serve.vue")
-            }
         ]
     },
     {

@@ -28,11 +28,6 @@ INSERT INTO `bank`.`loan` (`Loan_ID`, `Client_ID`, `bank_name`, `Loan_total`, `r
 INSERT INTO `bank`.`pay_status` (`Pay_ID`, `Loan_ID`, `Pay_money`, `Pay_date`) VALUES ('11', '10', '1000', '2022-12-12');
 INSERT INTO `bank`.`pay_status` (`Pay_ID`, `Loan_ID`, `Pay_money`, `Pay_date`) VALUES ('12', '10', '3000', '2023-3-1');
 
-INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('1', '123123200203150000');
-INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('3', '234234000000000000');
-INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('100', '280800000000000000');
-INSERT INTO `bank`.`serve` (`ID`, `Client_ID`) VALUES ('100', '302300000000000000');
-
 INSERT INTO `bank`.`credit_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('1', '123123200203150000', 'xx1支行', '123123', '3000', '2023-3-1', '10000');
 
 INSERT INTO `bank`.`credit_unique` (`bank_name`, `Account_ID`, `Client_ID`) VALUES ('xx1支行', '1', '123123200203150000');

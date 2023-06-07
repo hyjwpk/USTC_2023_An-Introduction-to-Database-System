@@ -68,13 +68,6 @@ create table Saving_account
    constraint PK_SAVING_ACCOUNT primary key clustered (Account_ID)
 );
 
-create table Serve 
-(
-   ID                   integer                        not null,
-   Client_ID            char(18)                       not null,
-   constraint PK_SERVE primary key clustered (ID, Client_ID)
-);
-
 create table credit_unique 
 (
    bank_name            char(30)                       not null,
@@ -167,18 +160,6 @@ alter table Saving_account
 
 alter table Saving_account
    add constraint FK_SAVING_A_OWN2_CLIENT foreign key (Client_ID)
-      references Client (Client_ID)
-      on update restrict
-      on delete restrict;
-
-alter table Serve
-   add constraint FK_SERVE_SERVE_MEMBER foreign key (ID)
-      references Member (ID)
-      on update restrict
-      on delete restrict;
-
-alter table Serve
-   add constraint FK_SERVE_SERVE2_CLIENT foreign key (Client_ID)
       references Client (Client_ID)
       on update restrict
       on delete restrict;
