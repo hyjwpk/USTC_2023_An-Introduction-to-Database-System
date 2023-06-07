@@ -13,24 +13,9 @@
 
         <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="pay_id" label="支付标识"></el-table-column>
-            <el-table-column label="贷款ID">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.loan_id"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.loan_id }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="支付金额">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.pay_money"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.pay_money }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="支付日期">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.pay_date"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.pay_date }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="loan_id" label="贷款ID"></el-table-column>
+            <el-table-column prop="pay_money" label="支付金额"></el-table-column>
+            <el-table-column prop="pay_date" label="支付日期"></el-table-column>
         </el-table>
 
         <div style="padding: 10px 0">
@@ -126,33 +111,6 @@ export default {
             load();
         });
 
-        const handleEdit = (data) => {
-            request.post(baseurl + "/edit", data).then(res => {
-                load();
-                if (res.data.code == 200) {
-                    ElMessage.success(res.data.message);
-                } else {
-                    ElMessage.error(res.data.code + "：" + res.data.message);
-                }
-            }).catch(err => {
-                ElMessage.error(err);
-            });
-            data.showmode = false;
-        };
-
-        const handleDelete = (data) => {
-            request.post(baseurl + "/delete", data).then(res => {
-                load();
-                if (res.data.code == 200) {
-                    ElMessage.success(res.data.message);
-                } else {
-                    ElMessage.error(res.data.code + "：" + res.data.message);
-                }
-            }).catch(err => {
-                ElMessage.error(err);
-            });
-        };
-
         const handleSizeChange = (number) => {
             pageSize.value = number;
             load();
@@ -196,8 +154,6 @@ export default {
             currentPage,
             pageSize,
             count,
-            handleEdit,
-            handleDelete,
             handleSizeChange,
             handleCurrentChange,
             handleAdd,

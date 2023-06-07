@@ -2,7 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.common.Response;
 import com.example.backend.entity.SubBank;
-import com.example.backend.entity.RenameBank;
+import com.example.backend.dto.RenameBank;
 import com.example.backend.service.SubBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +27,6 @@ public class SubBankController {
         return subBankService.add(subBank);
     }
 
-    @PostMapping("/rename")
-    public Response rename(@RequestBody RenameBank renameBank) {
-        return subBankService.rename(renameBank);
-    }
-
     @PostMapping("/delete")
     public Response delete(@RequestBody SubBank subBank) {
         return subBankService.delete(subBank);
@@ -40,5 +35,10 @@ public class SubBankController {
     @PostMapping("/page")
     public Response page(@RequestParam Integer page, @RequestParam Integer size, @RequestBody SubBank subBank) {
         return subBankService.page(page, size, subBank);
+    }
+
+    @PostMapping("/rename")
+    public Response rename(@RequestBody RenameBank renameBank) {
+        return subBankService.rename(renameBank);
     }
 }

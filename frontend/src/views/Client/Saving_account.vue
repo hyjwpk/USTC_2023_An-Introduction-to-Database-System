@@ -26,7 +26,7 @@
             <el-table-column prop="remaining" label="余额"></el-table-column>
             <el-table-column prop="open_date" label="开户日期"></el-table-column>
             <el-table-column prop="interest_rate" label="利率"></el-table-column>
-            <el-table-column fixed="right" label="操作" width="200">
+            <el-table-column fixed="right" label="操作" width="300">
                 <template #default="scope">
                     
                     <el-button @click="scope.row.showmode = true" type='primary' size="small">修改密码</el-button>

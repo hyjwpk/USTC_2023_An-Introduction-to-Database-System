@@ -1,6 +1,5 @@
 package com.example.backend.mapper;
 
-import com.example.backend.entity.Loan;
 import com.example.backend.entity.PayStatus;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
@@ -17,7 +16,7 @@ public interface PayStatusMapper {
 
     @Options(statementType = StatementType.CALLABLE)
     @Select("Call return_loan (#{PayStatus.loan_id}, #{PayStatus.pay_money}, #{map.status, mode=OUT, jdbcType=INTEGER});")
-    Integer add(@Param("PayStatus") PayStatus payStatus, Map<String,Object> map);
+    Integer add(@Param("PayStatus") PayStatus payStatus, Map<String, Object> map);
 
     @Delete("delete from pay_status where pay_id = #{pay_id}")
     void delete(PayStatus payStatus);

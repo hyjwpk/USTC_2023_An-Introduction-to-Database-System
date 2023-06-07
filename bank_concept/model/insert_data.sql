@@ -30,11 +30,7 @@ INSERT INTO `bank`.`pay_status` (`Pay_ID`, `Loan_ID`, `Pay_money`, `Pay_date`) V
 
 INSERT INTO `bank`.`credit_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `overdraft`) VALUES ('1', '123123200203150000', 'xx1支行', '123123', '3000', '2023-3-1', '10000');
 
-INSERT INTO `bank`.`credit_unique` (`bank_name`, `Account_ID`, `Client_ID`) VALUES ('xx1支行', '1', '123123200203150000');
-
 INSERT INTO `bank`.`saving_account` (`Account_ID`, `Client_ID`, `bank_name`, `Password`, `Remaining`, `Open_date`, `interest_rate`) VALUES ('2', '280800000000000000', 'xx1支行', '123456', '5000', '2023-2-1', '0.03');
-
-INSERT INTO `bank`.`saving_unique` (`Account_ID`, `bank_name`, `Client_ID`) VALUES ('2', 'xx1支行', '280800000000000000');
 
 CREATE table user
 (  

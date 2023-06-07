@@ -13,42 +13,12 @@
 
         <el-table :data="tableData" stripe style="width: 100%">
             <el-table-column prop="loan_id" label="贷款ID"></el-table-column>
-            <el-table-column label="客户身份证号" width="200">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.client_id"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.client_id }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="支行名称">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.bank_name"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.bank_name }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="本金">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.loan_total"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.loan_total }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="剩余贷款">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.remain_loan"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.remain_loan }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="借贷时间">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.loan_date"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.loan_date }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column label="利率">
-                <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.loan_rate"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.loan_rate }}</p>
-                </template>
-            </el-table-column>
+            <el-table-column prop="client_id"  label="客户身份证号" width="200"></el-table-column>
+            <el-table-column prop="bank_name" label="支行名称"></el-table-column>
+            <el-table-column prop="loan_total" label="本金"></el-table-column>
+            <el-table-column prop="remain_loan" label="剩余贷款"></el-table-column>
+            <el-table-column prop="loan_date" label="借贷时间"></el-table-column>
+            <el-table-column prop="loan_rate" label="利率"></el-table-column>
         </el-table>
 
         <div style="padding: 10px 0">
@@ -165,33 +135,6 @@ export default {
             load();
         });
 
-        const handleEdit = (data) => {
-            request.post(baseurl + "/edit", data).then(res => {
-                load();
-                if (res.data.code == 200) {
-                    ElMessage.success(res.data.message);
-                } else {
-                    ElMessage.error(res.data.code + "：" + res.data.message);
-                }
-            }).catch(err => {
-                ElMessage.error(err);
-            });
-            data.showmode = false;
-        };
-
-        const handleDelete = (data) => {
-            request.post(baseurl + "/delete", data).then(res => {
-                load();
-                if (res.data.code == 200) {
-                    ElMessage.success(res.data.message);
-                } else {
-                    ElMessage.error(res.data.code + "：" + res.data.message);
-                }
-            }).catch(err => {
-                ElMessage.error(err);
-            });
-        };
-
         const handleSizeChange = (number) => {
             pageSize.value = number;
             load();
@@ -235,8 +178,6 @@ export default {
             currentPage,
             pageSize,
             count,
-            handleEdit,
-            handleDelete,
             handleSizeChange,
             handleCurrentChange,
             handleAdd,

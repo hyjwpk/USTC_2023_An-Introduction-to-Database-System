@@ -19,7 +19,7 @@
                     <p v-show="!scope.row.showmode">{{ scope.row.depart_no }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="所属部门号" width="100" >
+            <el-table-column label="所属部门号" width="100">
                 <template #default="scope">
                     <el-input v-show="scope.row.showmode" v-model="scope.row.dep_depart_no"></el-input>
                     <p v-show="!scope.row.showmode">{{ scope.row.dep_depart_no }}</p>
@@ -66,7 +66,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="200">
                 <template #default="scope">
-                    <el-button @click="pre_edit(scope.row)" type='primary' size="small">编辑</el-button>
+                    <el-button @click="preEdit(scope.row)" type='primary' size="small">编辑</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
@@ -237,15 +237,11 @@ export default {
             load();
         });
 
-        const pre_edit = (data) => {
-            
-            // Object.keys(EditForm).forEach(key => {
-            //     editForm[key] = "";
-            // });
+        const preEdit = (data) => {
             editForm.id = data.id;
-            editForm.bank_name = data.bank_name;
-            editForm.dep_depart_no = data.dep_depart_no;
             editForm.depart_no = data.depart_no;
+            editForm.dep_depart_no = data.dep_depart_no;
+            editForm.bank_name = data.bank_name;
             editForm.level = data.level;
             editForm.salary = data.salary;
             data.showmode = true;
@@ -272,9 +268,6 @@ export default {
                 ElMessage.error(err);
             });
             data.showmode = false;
-            Object.keys(EditForm).forEach(key => {
-                editForm[key] = "";
-            });
         };
 
         const handleDelete = (data) => {
@@ -288,7 +281,6 @@ export default {
             }).catch(err => {
                 ElMessage.error(err);
             });
-            
         };
 
         const handleSizeChange = (number) => {
@@ -335,7 +327,7 @@ export default {
             currentPage,
             pageSize,
             count,
-            pre_edit,
+            preEdit,
             handleEdit,
             handleDelete,
             handleSizeChange,

@@ -1,6 +1,5 @@
 package com.example.backend.mapper;
 
-import com.example.backend.entity.Client;
 import com.example.backend.entity.Loan;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
@@ -14,11 +13,9 @@ public interface LoanMapper {
     @Update("update loan set client_id = #{client_id}, bank_name = #{bank_name}, loan_total = #{loan_total}, remain_loan = #{remain_loan}, loan_date = (case when #{loan_date} = '' then null when #{loan_date} = #{loan_date} then #{loan_date} end), loan_rate = #{loan_rate} where loan_id = #{loan_id}")
     void edit(Loan loan);
 
-//    @Insert("insert into loan(loan_id, client_id, bank_name, loan_total, remain_loan, loan_date, loan_rate) values(#{loan_id}, #{client_id}, #{bank_name}, #{loan_total}, #{remain_loan}, (case when #{loan_date} = '' then null when #{loan_date} = #{loan_date} then #{loan_date} end), #{loan_rate})")
-//    void add(Loan loan);
     @Options(statementType = StatementType.CALLABLE)
-    @Select("Call Borrow_loan ( #{Loan.client_id},#{Loan.bank_name},#{Loan.loan_total},#{Loan.loan_rate}, #{map.status, mode=OUT, jdbcType=INTEGER});")
-    Integer add(@Param("Loan") Loan loan, Map<String,Object> map);
+    @Select("Call borrow_loan ( #{Loan.client_id},#{Loan.bank_name},#{Loan.loan_total},#{Loan.loan_rate}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer add(@Param("Loan") Loan loan, Map<String, Object> map);
 
     @Delete("delete from loan where loan_id = #{loan_id}")
     void delete(Loan loan);

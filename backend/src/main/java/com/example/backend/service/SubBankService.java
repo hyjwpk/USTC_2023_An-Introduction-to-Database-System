@@ -3,8 +3,7 @@ package com.example.backend.service;
 import com.example.backend.common.MyException;
 import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
-import com.example.backend.entity.RenameBank;
-import com.example.backend.entity.SavingInteract;
+import com.example.backend.dto.RenameBank;
 import com.example.backend.entity.SubBank;
 import com.example.backend.mapper.SubBankMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +41,6 @@ public class SubBankService {
         }
         return Response.success();
     }
-    public Response rename(RenameBank renameBank) {
-        Integer status;
-        Map<String,Object> map = new HashMap<>();
-        try {
-            subBankMapper.rename(renameBank, map);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MyException(ResponseEnum.FAIL);
-        }
-        status = (Integer) map.get("status");
-        if (status == 2){
-            return new Response(ResponseEnum.FAIL.getCode(),"该名称已存在", null);
-        }
-        return new Response(ResponseEnum.SUCCESS.getCode(),"交互成功", null);
-    }
 
     public Response delete(SubBank subBank) {
         try {
@@ -76,5 +60,21 @@ public class SubBankService {
         map.put("data", subBankList);
         map.put("count", count);
         return Response.success(map);
+    }
+
+    public Response rename(RenameBank renameBank) {
+        Integer status;
+        Map<String, Object> map = new HashMap<>();
+        try {
+            subBankMapper.rename(renameBank, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MyException(ResponseEnum.FAIL);
+        }
+        status = (Integer) map.get("status");
+        if (status == 2) {
+            return new Response(ResponseEnum.FAIL.getCode(), "该名称已存在", null);
+        }
+        return Response.success();
     }
 }

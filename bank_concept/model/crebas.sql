@@ -68,14 +68,6 @@ create table Saving_account
    constraint PK_SAVING_ACCOUNT primary key clustered (Account_ID)
 );
 
-create table credit_unique 
-(
-   bank_name            char(30)                       not null,
-   Account_ID           integer                        not null,
-   Client_ID            char(18)                       not null,
-   constraint PK_CREDIT_UNIQUE primary key clustered (bank_name, Account_ID, Client_ID)
-);
-
 create table loan 
 (
    Loan_ID              integer                        not null,
@@ -86,14 +78,6 @@ create table loan
    Loan_date            date                           null,
    Loan_rate            float                          null,
    constraint PK_LOAN primary key (Loan_ID)
-);
-
-create table saving_unique 
-(
-   Account_ID           integer                        not null,
-   bank_name            char(30)                       not null,
-   Client_ID            char(18)                       not null,
-   constraint PK_SAVING_UNIQUE primary key clustered (Account_ID, bank_name, Client_ID)
 );
 
 create table sub_bank 
@@ -164,24 +148,6 @@ alter table Saving_account
       on update restrict
       on delete restrict;
 
-alter table credit_unique
-   add constraint FK_CREDIT_U_CREDIT_UN_SUB_BANK foreign key (bank_name)
-      references sub_bank (bank_name)
-      on update restrict
-      on delete restrict;
-
-alter table credit_unique
-   add constraint FK_CREDIT_U_CREDIT_UN_CREDIT_A foreign key (Account_ID)
-      references Credit_account (Account_ID)
-      on update restrict
-      on delete restrict;
-
-alter table credit_unique
-   add constraint FK_CREDIT_U_CREDIT_UN_CLIENT foreign key (Client_ID)
-      references Client (Client_ID)
-      on update restrict
-      on delete restrict;
-
 alter table loan
    add constraint FK_LOAN_LEND_BANK_SUB_BANK foreign key (bank_name)
       references sub_bank (bank_name)
@@ -190,24 +156,6 @@ alter table loan
 
 alter table loan
    add constraint FK_LOAN_LEND_CLIE_CLIENT foreign key (Client_ID)
-      references Client (Client_ID)
-      on update restrict
-      on delete restrict;
-
-alter table saving_unique
-   add constraint FK_SAVING_U_SAVING_UN_SAVING_A foreign key (Account_ID)
-      references Saving_account (Account_ID)
-      on update restrict
-      on delete restrict;
-
-alter table saving_unique
-   add constraint FK_SAVING_U_SAVING_UN_SUB_BANK foreign key (bank_name)
-      references sub_bank (bank_name)
-      on update restrict
-      on delete restrict;
-
-alter table saving_unique
-   add constraint FK_SAVING_U_SAVING_UN_CLIENT foreign key (Client_ID)
       references Client (Client_ID)
       on update restrict
       on delete restrict;

@@ -1,7 +1,6 @@
 package com.example.backend.mapper;
 
 import com.example.backend.entity.Client;
-import com.example.backend.entity.Member;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 
@@ -14,11 +13,9 @@ public interface ClientMapper {
     @Update("update client set real_name = #{real_name}, client_phone = #{client_phone}, client_address = #{client_address}, client_email = #{client_email} where client_ID = #{client_ID}")
     void edit(Client client);
 
-//    @Insert("insert into client(client_ID, real_name, client_phone, client_address, client_email) values(#{client_ID}, #{real_name}, #{client_phone}, #{client_address}, #{client_email})")
-//    void add(Client client);
     @Options(statementType = StatementType.CALLABLE)
-    @Select("Call Register ( #{client.client_ID},#{client.real_name},#{client.client_phone},#{client.client_address},#{client.client_email}, #{map.status, mode=OUT, jdbcType=INTEGER});")
-    Integer add(@Param("client") Client client, Map<String,Object> map);
+    @Select("Call register ( #{client.client_ID},#{client.real_name},#{client.client_phone},#{client.client_address},#{client.client_email}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer add(@Param("client") Client client, Map<String, Object> map);
 
     @Delete("delete from client where client_ID = #{client_ID}")
     void delete(Client client);

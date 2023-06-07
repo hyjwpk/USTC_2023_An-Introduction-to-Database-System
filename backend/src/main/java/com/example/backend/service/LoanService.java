@@ -3,7 +3,6 @@ package com.example.backend.service;
 import com.example.backend.common.MyException;
 import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
-import com.example.backend.entity.Client;
 import com.example.backend.entity.Loan;
 import com.example.backend.mapper.LoanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,6 @@ public class LoanService {
         return Response.success();
     }
 
-//    public Response add(Loan loan) {
-//        try {
-//            loanMapper.add(loan);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new MyException(ResponseEnum.FAIL);
-//        }
-//        return Response.success();
-//    }
     public Response add(Loan loan) {
         Integer status;
         Map<String,Object> map = new HashMap<>();
@@ -51,19 +41,19 @@ public class LoanService {
             throw new MyException(ResponseEnum.FAIL);
         }
         status = (Integer) map.get("status");
-        if (status == 18){
-            return new Response(ResponseEnum.FAIL.getCode(),"身份证号输入错误", null);
+        if (status == 2){
+            return new Response(ResponseEnum.FAIL.getCode(),"请检查是否已注册", null);
         }
-        if (status == 100){
+        if (status == 3){
             return new Response(ResponseEnum.FAIL.getCode(),"请先还已借贷款", null);
         }
-        if (status == 99){
+        if (status == 4){
             return new Response(ResponseEnum.FAIL.getCode(),"贷款金额过多", null);
         }
-        if (status == 1452){
-            return new Response(ResponseEnum.FAIL.getCode(),"请检查是否已注册或支行填写是否正确", null);
+        if (status == 5){
+            return new Response(ResponseEnum.FAIL.getCode(),"请检查支行填写是否正确", null);
         }
-        return new Response(ResponseEnum.SUCCESS.getCode(),"贷款成功", null);
+        return Response.success();
     }
 
     public Response delete(Loan loan) {

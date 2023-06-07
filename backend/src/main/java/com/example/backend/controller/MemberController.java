@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.common.Response;
-import com.example.backend.entity.EditMember;
+import com.example.backend.dto.EditMember;
 import com.example.backend.entity.Member;
 import com.example.backend.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,6 @@ import com.example.backend.common.MyException;
 import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.Client;
-import com.example.backend.entity.Member;
 import com.example.backend.mapper.ClientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +31,9 @@ public class ClientService {
         return Response.success();
     }
 
-//    public Response add(Client client) {
-//        try {
-//            clientMapper.add(client);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new MyException(ResponseEnum.FAIL);
-//        }
-//        return Response.success();
-//    }
     public Response add(Client client) {
         Integer status;
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         try {
             clientMapper.add(client, map);
         } catch (Exception e) {
@@ -51,16 +41,16 @@ public class ClientService {
             throw new MyException(ResponseEnum.FAIL);
         }
         status = (Integer) map.get("status");
-        if (status == 18){
-            return new Response(ResponseEnum.FAIL.getCode(),"身份证号错误", null);
+        if (status == 2) {
+            return new Response(ResponseEnum.FAIL.getCode(), "身份证号错误", null);
         }
-        if (status == 11){
-            return new Response(ResponseEnum.FAIL.getCode(),"手机号错误", null);
+        if (status == 3) {
+            return new Response(ResponseEnum.FAIL.getCode(), "手机号错误", null);
         }
-        if (status == 1062){
-            return new Response(ResponseEnum.FAIL.getCode(),"此身份证号已注册过", null);
+        if (status == 4) {
+            return new Response(ResponseEnum.FAIL.getCode(), "此身份证号已注册过", null);
         }
-        return new Response(ResponseEnum.SUCCESS.getCode(),status.toString(), null);
+        return Response.success();
     }
 
     public Response delete(Client client) {
