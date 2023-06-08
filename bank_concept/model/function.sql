@@ -21,6 +21,35 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE procedure build_bank (IN bank_name CHAR(30), IN bank_location CHAR(30), IN asset INT, OUT status INT)
+BEGIN
+    SET status = 1;
+	IF status = 1 AND asset < 0 THEN
+		SET status = 2;
+	END IF;
+    IF status = 1 AND EXISTS (SELECT * FROM sub_bank WHERE sub_bank.bank_name = bank_name) THEN
+		SET status = 3;
+	END IF;
+	IF status = 1 THEN
+		INSERT INTO `bank`.`sub_bank` (`bank_name`, `bank_location`, `asset`) VALUES (bank_name, bank_location, asset);
+	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE procedure edit_sub_bank (IN bank_name CHAR(30), IN bank_location CHAR(30), IN asset INT, OUT status INT)
+BEGIN
+	SET status = 1;
+	IF status = 1 AND asset < 0 THEN
+		SET status = 2;
+	END IF;
+	IF status = 1 THEN
+		UPDATE `bank`.`sub_bank` SET sub_bank.bank_location = bank_location, sub_bank.asset = asset WHERE sub_bank.bank_name = bank_name;
+	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE procedure edit_member (IN id INT, IN depart_no_new INT, IN dep_depart_no_new INT, IN bank_name_new CHAR(30), IN name_new CHAR(30), IN phone_new CHAR(11), IN address_new CHAR(30), IN salary_new INT, IN level_new INT, OUT status INT)
 BEGIN
 	DECLARE money INT DEFAULT salary_new;
@@ -47,7 +76,7 @@ BEGIN
     IF salary_new < 0 OR level_new <= 0 THEN
 		SET status = 6;
 	END IF;
-    IF test_phone <> 11 THEN
+    IF test_phone <> 11 or (SELECT phone_new REGEXP '[^0-9]') = 1 THEN
 		SET status = 7;
 	END IF;
     IF status = 1 THEN
@@ -73,7 +102,7 @@ BEGIN
 	DECLARE test_phone INT;
 	SET status = 1;
     SET test_phone = Length(phone_new);
-    IF test_phone <> 11 THEN
+    IF test_phone <> 11 or (SELECT phone_new REGEXP '[^0-9]') = 1 THEN
 		SET status = 2;
 	END IF;
     IF status = 1 THEN
@@ -575,8 +604,8 @@ CREATE EVENT update_event
 ON SCHEDULE EVERY 10 second STARTS NOW() ON COMPLETION PRESERVE DO 
 CALL calculate_loan ();
 
-ALTER EVENT update_event ON COMPLETION PRESERVE DISABLE;
 ALTER EVENT update_event ON COMPLETION PRESERVE ENABLE;
+ALTER EVENT update_event ON COMPLETION PRESERVE DISABLE;
 
 DELIMITER //
 CREATE trigger Decrease AFTER Insert ON Pay_status FOR EACH ROW 

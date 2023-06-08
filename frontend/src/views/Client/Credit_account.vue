@@ -25,15 +25,10 @@
             </el-table-column>
             <el-table-column prop="remaining" label="余额"> </el-table-column>
             <el-table-column prop="open_date" label="开户日期"> </el-table-column>
-            <el-table-column label="额度">
+            <el-table-column prop="overdraft" label="额度"> </el-table-column>
+            <el-table-column fixed="right" label="操作" width="250">
                 <template #default="scope">
-                    <el-input v-show="scope.row.showmode" v-model="scope.row.overdraft"></el-input>
-                    <p v-show="!scope.row.showmode">{{ scope.row.overdraft }}</p>
-                </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="200">
-                <template #default="scope">
-                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
+                    <el-button @click="scope.row.showmode = true" type='primary' size="small">修改密码</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>

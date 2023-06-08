@@ -30,7 +30,6 @@
                     <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="preRename(scope.row)" type='info' size="small">改名</el-button>
-                    <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

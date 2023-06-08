@@ -11,11 +11,13 @@ import java.util.Map;
 @Mapper
 public interface SubBankMapper {
 
-    @Update("update sub_bank set bank_location = #{bank_location}, asset = #{asset} where bank_name = #{bank_name}")
-    void edit(SubBank subBank);
+    @Options(statementType = StatementType.CALLABLE)
+    @Select("Call edit_sub_bank (#{SubBank.bank_name}, #{SubBank.bank_location}, #{SubBank.asset}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer edit(@Param("SubBank") SubBank subBank, Map<String, Object> map);
 
-    @Insert("insert into sub_bank(bank_name, bank_location, asset) values(#{bank_name}, #{bank_location}, #{asset})")
-    void add(SubBank subBank);
+    @Options(statementType = StatementType.CALLABLE)
+    @Select("Call build_bank (#{SubBank.bank_name}, #{SubBank.bank_location}, #{SubBank.asset}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer add(@Param("SubBank") SubBank subBank, Map<String, Object> map);
 
     @Delete("delete from sub_bank where bank_name = #{bank_name}")
     void delete(SubBank subBank);

@@ -47,9 +47,6 @@
                 <el-form-item label="部门号" label-width=100px>
                     <el-input v-model="addForm.depart_no" autocomplete="off" />
                 </el-form-item>
-                <el-form-item label="管理者员工号" label-width=100px>
-                    <el-input v-model="addForm.id" autocomplete="off" />
-                </el-form-item>
                 <el-form-item label="支行名称" label-width=100px>
                     <el-input v-model="addForm.bank_name" autocomplete="off" />
                 </el-form-item>

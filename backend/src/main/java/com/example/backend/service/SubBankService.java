@@ -23,21 +23,37 @@ public class SubBankService {
     }
 
     public Response edit(SubBank subBank) {
+        Integer status;
+        Map<String, Object> map = new HashMap<>();
         try {
-            subBankMapper.edit(subBank);
+            subBankMapper.edit(subBank, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);
         }
+        status = (Integer) map.get("status");
+        if (status == 2) {
+            return new Response(ResponseEnum.FAIL.getCode(), "总资产不能为负数", null);
+        }
         return Response.success();
     }
 
+
     public Response add(SubBank subBank) {
+        Integer status;
+        Map<String, Object> map = new HashMap<>();
         try {
-            subBankMapper.add(subBank);
+            subBankMapper.add(subBank, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);
+        }
+        status = (Integer) map.get("status");
+        if (status == 2) {
+            return new Response(ResponseEnum.FAIL.getCode(), "总资产不能为负数", null);
+        }
+        if (status == 3) {
+            return new Response(ResponseEnum.FAIL.getCode(), "该支行名称已存在", null);
         }
         return Response.success();
     }
