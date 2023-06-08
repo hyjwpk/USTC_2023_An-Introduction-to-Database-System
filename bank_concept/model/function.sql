@@ -44,7 +44,7 @@ BEGIN
 	IF status = 1 AND NOT EXISTS (SELECT * FROM department WHERE department.depart_no = dep_depart_no_new AND department.bank_name = bank_name_new) THEN
 		SET status = 5;
 	END IF;
-    IF salary_new < 0 or level_new <= 0 THEN
+    IF salary_new < 0 OR level_new <= 0 THEN
 		SET status = 6;
 	END IF;
     IF test_phone <> 11 THEN
@@ -67,7 +67,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
 DELIMITER //
 CREATE procedure edit_client (IN client_id CHAR(18), IN name_new CHAR(30), IN phone_new CHAR(11), IN address_new CHAR(30), IN email_new CHAR(30), OUT status INT)
 BEGIN
@@ -84,7 +83,6 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
-
 
 DELIMITER //
 CREATE Function test_id(id CHAR(18), sex CHAR(1))
@@ -104,7 +102,7 @@ BEGIN
     DECLARE status INT DEFAULT 0;
 	SELECT SUBSTRING(id, 1, 17) INTO id_first;
     SELECT SUBSTRING(id, 18, 1) INTO id_last;
-    IF (SELECT id_last REGEXP '[^0-9x]') = 1 or (SELECT id_first REGEXP '[^0-9]') = 1 THEN
+    IF (SELECT id_last REGEXP '[^0-9x]') = 1 OR (SELECT id_first REGEXP '[^0-9]') = 1 THEN
 		SET status = -1;
         return status;
 	END IF;
@@ -299,10 +297,10 @@ BEGIN
     IF status = 1 AND NOT EXISTS(SELECT * FROM sub_bank WHERE sub_bank.bank_name = bank_name) THEN
 		SET status = 4;
 	END IF;
-    IF card_type = 1 and (remain < 0 or interest_rate < 0.0) THEN
+    IF card_type = 1 AND (remain < 0 OR interest_rate < 0.0) THEN
 		SET status = 5;
 	END IF;
-    IF card_type = 2 and overdraft < 0  THEN
+    IF card_type = 2 AND overdraft < 0  THEN
 		SET status = 5;
 	END IF;
     IF (SELECT COUNT(*) FROM saving_account) != 0 THEN
@@ -437,7 +435,7 @@ BEGIN
     IF NOT EXISTS(SELECT * FROM client WHERE client.client_id = client_id) THEN
 		SET status = 2;
 	END IF;
-    IF loan_total < 0 or loan_rate < 0.0 THEN
+    IF loan_total < 0 OR loan_rate < 0.0 THEN
 		SET status = 6;
 	END IF;
     IF status = 1 AND EXISTS(SELECT * FROM loan Where client_id = loan.client_id AND bank_name = loan.bank_name AND remain_loan > 0 )  THEN
@@ -588,7 +586,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
 DELIMITER //
 CREATE trigger credit_bank AFTER UPDATE ON credit_account FOR EACH ROW 
 BEGIN
@@ -597,7 +594,6 @@ BEGIN
 	END IF;
 END //
 DELIMITER ;
-
 
 DELIMITER //
 CREATE trigger saving_bank AFTER UPDATE ON saving_account FOR EACH ROW 
