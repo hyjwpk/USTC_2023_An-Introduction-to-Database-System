@@ -28,8 +28,10 @@ BEGIN
     DECLARE dep_depart_no INT;
     DECLARE bank_name CHAR(30);
     DECLARE salary INT;
+    DECLARE test_phone INT;
     DECLARE level INT;
 	SET status = 1;
+    SET test_phone = Length(phone_new);
 	IF NOT EXISTS (SELECT * FROM sub_bank WHERE sub_bank.bank_name = bank_name_new)  THEN
 		SET status = 2;
 	END IF;
@@ -41,6 +43,12 @@ BEGIN
 	END IF;
 	IF status = 1 AND NOT EXISTS (SELECT * FROM department WHERE department.depart_no = dep_depart_no_new AND department.bank_name = bank_name_new) THEN
 		SET status = 5;
+	END IF;
+    IF salary_new < 0 or level_new <= 0 THEN
+		SET status = 6;
+	END IF;
+    IF test_phone <> 11 THEN
+		SET status = 7;
 	END IF;
     IF status = 1 THEN
 		START TRANSACTION;
@@ -59,6 +67,25 @@ BEGIN
 END //
 DELIMITER ;
 
+
+DELIMITER //
+CREATE procedure edit_client (IN client_id CHAR(18), IN name_new CHAR(30), IN phone_new CHAR(11), IN address_new CHAR(30), IN email_new CHAR(30), OUT status INT)
+BEGIN
+	DECLARE test_phone INT;
+	SET status = 1;
+    SET test_phone = Length(phone_new);
+    IF test_phone <> 11 THEN
+		SET status = 2;
+	END IF;
+    IF status = 1 THEN
+		START TRANSACTION;
+        UPDATE client SET client.real_name = name_new, client.client_phone = phone_new, client.client_address = address_new, client.client_email = email_new WHERE client.client_id = client_id;
+        COMMIT;
+    END IF;
+END //
+DELIMITER ;
+
+
 DELIMITER //
 CREATE Function test_id(id CHAR(18), sex CHAR(1))
 RETURNS INT
@@ -71,8 +98,16 @@ BEGIN
     DECLARE born_month INT DEFAULT 0;
     DECLARE born_day INT DEFAULT 0;
     DECLARE sex_no INT DEFAULT 0;
+    DECLARE id_first CHAR(17);
+    DECLARE id_last CHAR(1);
     DECLARE j INT DEFAULT 1;
     DECLARE status INT DEFAULT 0;
+	SELECT SUBSTRING(id, 1, 17) INTO id_first;
+    SELECT SUBSTRING(id, 18, 1) INTO id_last;
+    IF (SELECT id_last REGEXP '[^0-9x]') = 1 or (SELECT id_first REGEXP '[^0-9]') = 1 THEN
+		SET status = -1;
+        return status;
+	END IF;
     SELECT Cast(SUBSTRING(id, 7, 4) AS SIGNED) INTO born_year;
 	SELECT Cast(SUBSTRING(id, 11, 2) AS SIGNED) INTO born_month;
     SELECT Cast(SUBSTRING(id, 13, 2) AS SIGNED) INTO born_day;
@@ -192,7 +227,7 @@ BEGIN
     SET test_id = Length(personal_id);
     SET test_phone = Length(phone);
     SET status = 1;
-	IF status = 1 AND (test_id <> 18 OR ((SELECT personal_id REGEXP '[^0-9x]') = 1)) THEN
+	IF status = 1 AND test_id <> 18  THEN
 		SET status = 2;
 	END IF;
     IF status = 1 AND (sex != 'M' AND sex != 'W') THEN
@@ -225,7 +260,7 @@ BEGIN
     SET test_id = Length(client_id);
     SET test_phone = Length(client_phone);
     SET status = 1;
-	IF status = 1 AND (test_id <> 18 OR ((SELECT client_id REGEXP '[^0-9x]') = 1)) THEN
+	IF status = 1 AND test_id <> 18 THEN
 		SET status = 2;
 	END IF;
 	IF status = 1 AND ((SELECT bank.test_id(client_id, 'X')) = -1) THEN
@@ -264,7 +299,12 @@ BEGIN
     IF status = 1 AND NOT EXISTS(SELECT * FROM sub_bank WHERE sub_bank.bank_name = bank_name) THEN
 		SET status = 4;
 	END IF;
-    
+    IF card_type = 1 and (remain < 0 or interest_rate < 0.0) THEN
+		SET status = 5;
+	END IF;
+    IF card_type = 2 and overdraft < 0  THEN
+		SET status = 5;
+	END IF;
     IF (SELECT COUNT(*) FROM saving_account) != 0 THEN
 		SELECT MAX(account_id) FROM saving_account INTO curr_max;
 	END IF;
@@ -324,6 +364,9 @@ BEGIN
 	IF NOT EXISTS (SELECT * FROM credit_account WHERE credit_account.account_id = card_id) THEN
 		SET status = -2;
 	END IF;
+    IF money < 0 THEN
+		SET status = -5;
+	END IF;
     IF status = -1 THEN
 		IF type = 2 THEN
 			SELECT credit_account.remaining FROM credit_account WHERE credit_account.account_id = card_id INTO remaining;
@@ -360,6 +403,9 @@ BEGIN
     IF NOT EXISTS (SELECT * FROM saving_account WHERE saving_account.account_id = card_id) THEN
 		SET status = 2;
 	END IF;
+    IF money < 0 THEN
+		SET status = 5;
+	END IF;
     IF status = 1 THEN
 		IF type = 1 THEN
 			UPDATE saving_account SET saving_account.remaining = saving_account.remaining + money WHERE saving_account.account_id = card_id;
@@ -390,6 +436,9 @@ BEGIN
     SET test_id = Length(client_id);
     IF NOT EXISTS(SELECT * FROM client WHERE client.client_id = client_id) THEN
 		SET status = 2;
+	END IF;
+    IF loan_total < 0 or loan_rate < 0.0 THEN
+		SET status = 6;
 	END IF;
     IF status = 1 AND EXISTS(SELECT * FROM loan Where client_id = loan.client_id AND bank_name = loan.bank_name AND remain_loan > 0 )  THEN
 		SET status = 3;
@@ -424,6 +473,9 @@ BEGIN
     IF NOT EXISTS(SELECT * FROM loan WHERE loan.loan_id = loan_id) THEN
 		SET status = -2;
     END IF;
+    IF pay_money < 0 THEN
+		SET status = -3;
+	END IF;
     SELECT loan.remain_loan FROM loan WHERE loan.loan_id = loan_id INTO loan_remain;
 	SET next_no = max_no+1;
     IF pay_money > loan_remain THEN
@@ -531,21 +583,27 @@ ALTER EVENT update_event ON COMPLETION PRESERVE ENABLE;
 DELIMITER //
 CREATE trigger Decrease AFTER Insert ON Pay_status FOR EACH ROW 
 BEGIN
-    UPDATE loan SET loan.remain_loan = (loan.remain_loan - NEW.Pay_money) Where loan.loan_id = NEW.loan_id;
-    UPDATE `bank`.`sub_bank`, `bank`.`loan` SET asset = asset + NEW.Pay_money WHERE sub_bank.bank_name = loan.bank_name AND loan.loan_id = NEW.loan_id;
+	UPDATE loan SET loan.remain_loan = (loan.remain_loan - NEW.Pay_money) Where loan.loan_id = NEW.loan_id;
+	UPDATE `bank`.`sub_bank`, `bank`.`loan` SET asset = asset + NEW.Pay_money WHERE sub_bank.bank_name = loan.bank_name AND loan.loan_id = NEW.loan_id;
 END //
 DELIMITER ;
+
 
 DELIMITER //
 CREATE trigger credit_bank AFTER UPDATE ON credit_account FOR EACH ROW 
 BEGIN
-	UPDATE `bank`.`sub_bank` SET asset = asset - NEW.remaining + OLD.remaining WHERE sub_bank.bank_name = NEW.bank_name;
+	IF @enable_trigger = 1 THEN
+		UPDATE `bank`.`sub_bank` SET asset = asset - NEW.remaining + OLD.remaining WHERE sub_bank.bank_name = NEW.bank_name;
+	END IF;
 END //
 DELIMITER ;
+
 
 DELIMITER //
 CREATE trigger saving_bank AFTER UPDATE ON saving_account FOR EACH ROW 
 BEGIN
-	UPDATE `bank`.`sub_bank` SET asset = asset + NEW.remaining - OLD.remaining WHERE sub_bank.bank_name = NEW.bank_name;
+	IF @enable_trigger = 1 THEN
+		UPDATE `bank`.`sub_bank` SET asset = asset + NEW.remaining - OLD.remaining WHERE sub_bank.bank_name = NEW.bank_name;
+    END IF;
 END //
 DELIMITER ;

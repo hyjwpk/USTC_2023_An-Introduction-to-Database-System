@@ -53,6 +53,9 @@ public class LoanService {
         if (status == 5){
             return new Response(ResponseEnum.FAIL.getCode(),"请检查支行填写是否正确", null);
         }
+        if (status == 6){
+            return new Response(ResponseEnum.FAIL.getCode(),"贷款与利率不能为负数", null);
+        }
         return Response.success();
     }
 

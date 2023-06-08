@@ -51,6 +51,9 @@ public class CreditAccountService {
         if (status == 4) {
             return new Response(ResponseEnum.FAIL.getCode(), "请检查支行名称是否正确", null);
         }
+        if (status == 5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "额度不能为负数", null);
+        }
         return Response.success();
     }
 
@@ -96,6 +99,9 @@ public class CreditAccountService {
         if (status == 0) {
             return new Response(ResponseEnum.FAIL.getCode(), "该信用卡已还清", null);
         }
+        if (status == -5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "金额不能为负数", null);
+        }
         if (status > 0) {
             return new Response(ResponseEnum.FAIL.getCode(), "该信用卡只需还" + status + "元即可", null);
         }
@@ -120,6 +126,9 @@ public class CreditAccountService {
         }
         if (status == -4) {
             return new Response(ResponseEnum.FAIL.getCode(), "暂时无法使用这么多钱", null);
+        }
+        if (status == -5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "金额不能为负数", null);
         }
         return Response.success();
     }

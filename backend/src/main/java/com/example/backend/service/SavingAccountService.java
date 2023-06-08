@@ -51,6 +51,9 @@ public class SavingAccountService {
         if (status == 4) {
             return new Response(ResponseEnum.FAIL.getCode(), "请检查支行名称是否正确", null);
         }
+        if (status == 5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "本金与利率不能为负数", null);
+        }
         return Response.success();
     }
 
@@ -93,6 +96,9 @@ public class SavingAccountService {
         if (status == 2) {
             return new Response(ResponseEnum.FAIL.getCode(), "本储蓄卡不存在", null);
         }
+        if (status == 5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "金额不能为负数", null);
+        }
         return Response.success();
     }
 
@@ -114,6 +120,9 @@ public class SavingAccountService {
         }
         if (status == 4) {
             return new Response(ResponseEnum.FAIL.getCode(), "暂时无法取出这么多钱", null);
+        }
+        if (status == 5) {
+            return new Response(ResponseEnum.FAIL.getCode(), "金额不能为负数", null);
         }
         return Response.success();
     }

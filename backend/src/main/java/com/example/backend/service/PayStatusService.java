@@ -44,6 +44,9 @@ public class PayStatusService {
         if (status == -2) {
             return new Response(ResponseEnum.FAIL.getCode(), "贷款号输入错误", null);
         }
+        if (status == -3) {
+            return new Response(ResponseEnum.FAIL.getCode(), "还款不能为负数", null);
+        }
         if (status == 0) {
             return new Response(ResponseEnum.FAIL.getCode(), "该贷款已还清", null);
         }

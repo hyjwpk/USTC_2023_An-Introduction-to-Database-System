@@ -43,6 +43,12 @@ public class MemberService {
         if (status == 5) {
             return new Response(ResponseEnum.FAIL.getCode(), "该支行不存在此部门", null);
         }
+        if (status == 6) {
+            return new Response(ResponseEnum.FAIL.getCode(), "工资与等级不能为负数", null);
+        }
+        if (status == 7) {
+            return new Response(ResponseEnum.FAIL.getCode(), "手机号错误", null);
+        }
         return Response.success();
     }
 

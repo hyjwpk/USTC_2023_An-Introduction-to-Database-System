@@ -22,11 +22,17 @@ public class ClientService {
     }
 
     public Response edit(Client client) {
+        Integer status;
+        Map<String, Object> map = new HashMap<>();
         try {
-            clientMapper.edit(client);
+            clientMapper.edit(client, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);
+        }
+        status = (Integer) map.get("status");
+        if (status == 2) {
+            return new Response(ResponseEnum.FAIL.getCode(), "手机号不正确", null);
         }
         return Response.success();
     }
