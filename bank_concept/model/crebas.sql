@@ -14,9 +14,9 @@ create table credit_account
    client_id            char(18)                       not null,
    bank_name            char(30)                       not null,
    password             char(20)                       null,
-   remaining            integer                        null,
+   remaining            integer                        not null,
    open_date            date                           null,
-   overdraft            integer                        null,
+   overdraft            integer                        not null,
    constraint PK_CREDIT_ACCOUNT primary key clustered (account_id)
 );
 
@@ -35,10 +35,10 @@ create table loan
    loan_id              integer                        not null,
    client_id            char(18)                       not null,
    bank_name            char(30)                       not null,
-   loan_total           integer                        null,
-   remain_loan          integer                        null,
+   loan_total           integer                        not null,
+   remain_loan          integer                        not null,
    loan_date            date                           null,
-   loan_rate            float                          null,
+   loan_rate            float                          not null,
    constraint PK_LOAN primary key (loan_id)
 );
 
@@ -74,9 +74,9 @@ create table saving_account
    client_id            char(18)                       not null,
    bank_name            char(30)                       not null,
    password             char(20)                       null,
-   remaining            integer                        null,
+   remaining            integer                        not null,
    open_date            date                           null,
-   interest_rate        float                          null,
+   interest_rate        float                          not null,
    constraint PK_SAVING_ACCOUNT primary key clustered (account_id)
 );
 
@@ -84,7 +84,7 @@ create table sub_bank
 (
    bank_name            char(30)                       not null,
    bank_location        char(30)                       null,
-   asset                integer                        null,
+   asset                integer                        not null,
    constraint PK_SUB_BANK primary key (bank_name)
 );
 

@@ -66,7 +66,7 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="200">
                 <template #default="scope">
-                    <el-button @click="preEdit(scope.row)" type='primary' size="small">编辑</el-button>
+                    <el-button @click="scope.row.showmode = true" type='primary' size="small">编辑</el-button>
                     <el-button @click="handleEdit(scope.row)" type='success' size="small">保存</el-button>
                     <el-button @click="handleDelete(scope.row)" type='danger' size="small">删除</el-button>
                 </template>
@@ -237,27 +237,8 @@ export default {
             load();
         });
 
-        const preEdit = (data) => {
-            editForm.id = data.id;
-            editForm.depart_no = data.depart_no;
-            editForm.dep_depart_no = data.dep_depart_no;
-            editForm.bank_name = data.bank_name;
-            editForm.level = data.level;
-            editForm.salary = data.salary;
-            data.showmode = true;
-        }
-
         const handleEdit = (data) => {
-            editForm.bank_name_new = data.bank_name;
-            editForm.dep_depart_no_new = data.dep_depart_no;
-            editForm.depart_no_new = data.depart_no;
-            editForm.level_new = data.level;
-            editForm.salary_new = data.salary;
-            editForm.address_new = data.address;
-            editForm.phone_new = data.phone;
-            editForm.name_new = data.name;
-
-            request.post(baseurl + "/edit", editForm).then(res => {
+            request.post(baseurl + "/edit", data).then(res => {
                 load();
                 if (res.data.code == 200) {
                     ElMessage.success(res.data.message);
@@ -327,7 +308,6 @@ export default {
             currentPage,
             pageSize,
             count,
-            preEdit,
             handleEdit,
             handleDelete,
             handleSizeChange,

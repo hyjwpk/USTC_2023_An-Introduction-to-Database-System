@@ -4,7 +4,6 @@ import com.example.backend.common.MyException;
 import com.example.backend.common.Response;
 import com.example.backend.common.ResponseEnum;
 import com.example.backend.entity.Member;
-import com.example.backend.dto.EditMember;
 import com.example.backend.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class MemberService {
@@ -23,14 +21,11 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
-    public Response edit(EditMember editmember) {
+    public Response edit(Member member) {
         Integer status;
         Map<String, Object> map = new HashMap<>();
         try {
-            if (Objects.equals(editmember.getDepart_no_new(), "")) {
-                editmember.setDepart_no_new(null);
-            }
-            memberMapper.edit(editmember, map);
+            memberMapper.edit(member, map);
         } catch (Exception e) {
             e.printStackTrace();
             throw new MyException(ResponseEnum.FAIL);

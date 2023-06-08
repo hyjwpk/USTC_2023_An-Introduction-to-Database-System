@@ -1,7 +1,6 @@
 package com.example.backend.mapper;
 
 import com.example.backend.entity.Member;
-import com.example.backend.dto.EditMember;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 
@@ -11,8 +10,8 @@ import java.util.Map;
 @Mapper
 public interface MemberMapper {
     @Options(statementType = StatementType.CALLABLE)
-    @Select("Call edit_member ( #{EditMember.id},#{EditMember.depart_no},#{EditMember.depart_no_new},#{EditMember.dep_depart_no},#{EditMember.dep_depart_no_new},#{EditMember.bank_name},#{EditMember.bank_name_new},#{EditMember.name_new},#{EditMember.phone_new},#{EditMember.address_new},#{EditMember.salary},#{EditMember.salary_new},#{EditMember.level},#{EditMember.level_new}, #{map.status, mode=OUT, jdbcType=INTEGER});")
-    Integer edit(@Param("EditMember") EditMember editmember, Map<String, Object> map);
+    @Select("Call edit_member ( #{member.id},#{member.depart_no},#{member.dep_depart_no},#{member.bank_name},#{member.name},#{member.phone},#{member.address},#{member.salary},#{member.level}, #{map.status, mode=OUT, jdbcType=INTEGER});")
+    Integer edit(@Param("member") Member member, Map<String, Object> map);
 
 
     @Options(statementType = StatementType.CALLABLE)

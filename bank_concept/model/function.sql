@@ -21,9 +21,14 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE procedure edit_member (IN id INT, IN depart_no INT, IN depart_no_new INT, IN dep_depart_no INT, IN dep_depart_no_new INT, IN bank_name CHAR(30), IN bank_name_new CHAR(30), IN name_new CHAR(30), IN phone_new CHAR(11), IN address_new CHAR(30), IN salary INT, IN salary_new INT, IN level INT, IN level_new INT, OUT status INT)
+CREATE procedure edit_member (IN id INT, IN depart_no_new INT, IN dep_depart_no_new INT, IN bank_name_new CHAR(30), IN name_new CHAR(30), IN phone_new CHAR(11), IN address_new CHAR(30), IN salary_new INT, IN level_new INT, OUT status INT)
 BEGIN
 	DECLARE money INT DEFAULT salary_new;
+    DECLARE depart_no INT;
+    DECLARE dep_depart_no INT;
+    DECLARE bank_name CHAR(30);
+    DECLARE salary INT;
+    DECLARE level INT;
 	SET status = 1;
 	IF NOT EXISTS (SELECT * FROM sub_bank WHERE sub_bank.bank_name = bank_name_new)  THEN
 		SET status = 2;
@@ -40,6 +45,7 @@ BEGIN
     IF status = 1 THEN
 		START TRANSACTION;
 		SET FOREIGN_KEY_CHECKS = 0;
+        SELECT member.depart_no, member.dep_depart_no, member.bank_name, member.salary, member.level FROM member WHERE member.id = id INTO depart_no, dep_depart_no, bank_name, salary, level;
         IF level != level_new AND salary = salary_new THEN
 			SET money = salary + 3000*(level_new-level);
         END IF;
