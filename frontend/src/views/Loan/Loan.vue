@@ -4,8 +4,8 @@
             <div class="card_header">
                 <b>贷款</b>
                 <div>
-                    <el-button color="#6495ED" @click="addDialogFormVisible = true">借贷</el-button>
                     <el-button color="#056DE8" @click="searchDialogFormVisible = true">搜索</el-button>
+                    <el-button color="#87CEEB" @click="addDialogFormVisible = true">借贷</el-button>
                 </div>
             </div>
         </template>
