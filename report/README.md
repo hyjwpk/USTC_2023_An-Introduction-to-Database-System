@@ -40,11 +40,11 @@
 
 ### ER图
 
-![er图](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\er图\er图.jpg)
+![er图](image/er图/er图.jpg)
 
 ### 数据库模式
 
-![模式图](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\er图\模式图.jpg)
+![模式图](image/er图/模式图.jpg)
 
 ​		与上面的函数依赖进行对比，满足3NF的要求。
 
@@ -1791,103 +1791,77 @@ DELIMITER ;
 
 ### 初始状态
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\支行.png" alt="支行" style="zoom:50%;" />
+![支行](image/测试/初始/支行.png)
 
+![部门](image/测试/初始/部门.png)
 
+![员工](image/测试/初始/员工.png)
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\部门.png" alt="部门" style="zoom:50%;" />
+![客户](image/测试/初始/客户.png)
 
+![信用账户](image/测试/初始/信用账户.png)
 
+![储蓄账户](image/测试/初始/储蓄账户.png)
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\员工.png" alt="员工" style="zoom:50%;" />
+![贷款](image/测试/初始/贷款.png)
 
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\客户.png" alt="客户" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\信用账户.png" alt="信用账户" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\储蓄账户.png" alt="储蓄账户" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\贷款.png" alt="贷款" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\初始\还贷.png" alt="还贷" style="zoom:50%;" />
-
-
+![还贷](image/测试/初始/还贷.png)
 
 ### 支行操作
 
 #### 建立支行
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\建立.png" alt="建立" style="zoom:50%;" />
+![建立](image/测试/支行操作/建立.png)
 
 #### 建立成功
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\建立成功.png" alt="建立成功" style="zoom:50%;" />
+![建立成功](image/测试/支行操作/建立成功.png)
 
 #### 支行改名
 
 此处为对“xx1支行”改名为“1”。
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名.png" alt="改名" style="zoom:50%;" />
+![改名](image/测试/支行操作/改名.png)
 
 #### 改名结果
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果1.png" alt="改名结果1" style="zoom:50%;" />
+![改名结果1](image/测试/支行操作/改名结果1.png)
 
+![改名结果2](image/测试/支行操作/改名结果2.png)
 
+![改名结果3](image/测试/支行操作/改名结果3.png)
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果2.png" alt="改名结果2" style="zoom:50%;" />
+![改名结果4](image/测试/支行操作/改名结果4.png)
 
+![改名结果5](image/测试/支行操作/改名结果5.png)
 
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果3.png" alt="改名结果3" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果4.png" alt="改名结果4" style="zoom:50%;" />
-
-
-
-![改名结果5](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果5.png)
-
-
-
-![改名结果6](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\改名结果6.png)
+![改名结果6](image/测试/支行操作/改名结果6.png)
 
 #### 支行其他信息修改
 
-![其他信息修改](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\其他信息修改.png)
+![其他信息修改](image/测试/支行操作/其他信息修改.png)
 
 #### 修改结果
 
-![修改结果](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\支行操作\修改结果.png)
+![修改结果](image/测试/支行操作/修改结果.png)
 
 ### 部门操作
 
 #### 创建部门
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\部门操作\创建部门.png" alt="创建部门" style="zoom:50%;" />
+![创建部门](image/测试/部门操作/创建部门.png)
 
 #### 创建成功
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\部门操作\创建成功.png" alt="创建成功" style="zoom:50%;" />
+![创建成功](image/测试/部门操作/创建成功.png)
 
 #### 修改信息
 
-![修改部门](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\部门操作\修改部门.png)
+![修改部门](image/测试/部门操作/修改部门.png)
 
 #### 修改成功
 
-![修改成功](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\部门操作\修改成功.png)
+![修改成功](image/测试/部门操作/修改成功.png)
 
 ### 员工操作
 
@@ -1895,39 +1869,31 @@ DELIMITER ;
 
 ##### 身份证号错误情况
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\插入验证.png" alt="插入验证" style="zoom: 50%;" />
+![插入验证](image/测试/员工操作/插入验证.png)
 
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\身份证号问题.png" alt="身份证号问题" style="zoom:50%;" />
+![身份证号问题](image/测试/员工操作/身份证号问题.png)
 
 ##### 输入信息无误
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\插入成功.png" alt="插入成功" style="zoom:50%;" />
+![插入成功](image/测试/员工操作/插入成功.png)
 
 ##### 结果
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\成功结果.png" alt="成功结果" style="zoom:50%;" />
+![成功结果](image/测试/员工操作/成功结果.png)
 
 #### 修改员工信息
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\修改1.png" alt="修改1" style="zoom: 50%;" />
+![修改1](image/测试/员工操作/修改1.png)
 
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\修改2.png" alt="修改2" style="zoom:50%;" />
+![修改2](image/测试/员工操作/修改2.png)
 
 #### 修改结果
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\修改结果1.png" alt="修改结果1" style="zoom:50%;" />
+![修改结果1](image/测试/员工操作/修改结果1.png)
 
+![修改结果2](image/测试/员工操作/修改结果2.png)
 
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\修改结果2.png" alt="修改结果2" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\员工操作\修改结果3.png" alt="修改结果3" style="zoom:50%;" />
+![修改结果3](image/测试/员工操作/修改结果3.png)
 
 ​		可以看到在修改等级后，薪资也增加了；在部门对应的管理者也在人员改变任职时发生了变化。
 
@@ -1935,47 +1901,37 @@ DELIMITER ;
 
 #### 插入用户
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\用户操作\插入用户.png" alt="插入用户" style="zoom:50%;" />
+![插入用户](image/测试/用户操作/插入用户.png)
 
 #### 插入成功
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\用户操作\插入成功.png" alt="插入成功" style="zoom:50%;" />
+![插入成功](image/测试/用户操作/插入成功.png)
 
 ### 信用账户操作
 
 #### 开户
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\开户.png" alt="开户" style="zoom:50%;" />
+![开户](image/测试/信用账户操作/开户.png)
 
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\保存成功.png" alt="保存成功" style="zoom:50%;" />
+![保存成功](image/测试/信用账户操作/保存成功.png)
 
 #### 使用
 
-![使用1](C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\使用1.png)
+![使用1](image/测试/信用账户操作/使用1.png)
 
+![结果1](image/测试/信用账户操作/结果1.png)
 
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\结果1.png" alt="结果1" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\结果2.png" alt="结果2" style="zoom:50%;" />
+![结果2](image/测试/信用账户操作/结果2.png)
 
 可以看到在使用信用卡时，支行总资产也发生了变化
 
 #### 还款
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\还款.png" alt="还款" style="zoom:50%;" />
+![还款](image/测试/信用账户操作/还款.png)
 
+![结果3](image/测试/信用账户操作/结果3.png)
 
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\结果3.png" alt="结果3" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\信用账户操作\结果4.png" alt="结果4" style="zoom:50%;" />
+![结果4](image/测试/信用账户操作/结果4.png)
 
 可以看到在还款后，支行总资产也发生了变化
 
@@ -1985,33 +1941,23 @@ DELIMITER ;
 
 ### 借贷操作
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\借贷\借贷.png" alt="借贷" style="zoom:50%;" />
+![借贷](image/测试/借贷/借贷.png)
 
+![结果1](image/测试/借贷/结果1.png)
 
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\借贷\结果1.png" alt="结果1" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\借贷\结果2.png" alt="结果2" style="zoom:50%;" />
+![结果2](image/测试/借贷/结果2.png)
 
 可以看到在借贷后，支行总资产也发生了变化
 
 ### 还贷操作
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\还贷操作\还贷.png" alt="还贷" style="zoom:50%;" />
+![还贷](image/测试/还贷操作/还贷.png)
 
+![结果1](image/测试/还贷操作/结果1.png)
 
+![结果2](image/测试/还贷操作/结果2.png)
 
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\还贷操作\结果1.png" alt="结果1" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\还贷操作\结果2.png" alt="结果2" style="zoom:50%;" />
-
-
-
-<img src="C:\Users\24820\Desktop\USTC_2023_An-Introduction-to-Database-System\report\image\测试\还贷操作\结果3.png" alt="结果3" style="zoom:50%;" />
+![结果3](image/测试/还贷操作/结果3.png)
 
 可以看到在借贷后，本金与支行总资产也发生了变化
 
