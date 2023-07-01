@@ -36,7 +36,7 @@
 10. 储蓄的继承关系：储蓄账户为账户一种，继承自账户实体。
 11. 信用的继承关系：信用账户为账户一种，继承自账户实体。
 
-综上，我们得到函数依赖{员工号$\rightarrow$部门号，部门号$\rightarrow$员工号，部门号$\rightarrow$支行号，员工号$\rightarrow$支行名称，账户号$\rightarrow${支行名称，客户身份证号}，贷款号$\rightarrow$（支行名称，客户身份证号），支付标志$\rightarrow$贷款号}。
+综上，我们得到函数依赖{员工号 $\rightarrow$ 部门号，部门号 $\rightarrow$ 员工号，部门号 $\rightarrow$ 支行号，员工号 $\rightarrow$ 支行名称，账户号 $\rightarrow$ {支行名称，客户身份证号}，贷款号 $\rightarrow$（支行名称，客户身份证号），支付标志 $\rightarrow$ 贷款号}。
 
 ### ER图
 
